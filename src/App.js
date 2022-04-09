@@ -1,9 +1,10 @@
-function App() {
+import { Layout } from "components/Layout";
+import { Text } from '@chakra-ui/react';
+
+export function App() {
   return (
-    <div>
-      <h1>Segundo Hogar</h1>
-    </div>
+    <Layout>
+      <Text fontSize='4xl'>Segundo Hogar</Text>
+    </Layout>
   );
 }
-
-export default App;
