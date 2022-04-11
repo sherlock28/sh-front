@@ -7,7 +7,7 @@ import {
     useColorModeValue
 } from '@chakra-ui/react';
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
-import { Logo } from './Logo';
+import { Logo } from 'components/commons/Logo';
 import { SocialButton } from './SocialButton';
 import React from 'react';
 
@@ -23,10 +23,11 @@ export function Footer() {
                 spacing={4}
                 justify={'center'}
                 align={'center'}>
-                <Logo />
+                <Logo boxSize="80px"/>
                 <Stack direction={'row'} spacing={6}>
                     <Link href={'#'}>Inicio</Link>
-                    <Link href={'#'}>Buscar</Link>
+                    <Link href={'#'}>Buscar mi hogar</Link>
+                    <Link href={'#'}>Publicar mi inmueble</Link>
                     <Link href={'#'}>Sobre nosotros</Link>
                     <Link href={'#'}>Contactos</Link>
                 </Stack>
@@ -44,7 +45,7 @@ export function Footer() {
                     spacing={4}
                     justify={{ base: 'center', md: 'space-between' }}
                     align={{ base: 'center', md: 'center' }}>
-                    <Text>© 2022 Segundo Hogar, Todos los derechos reservados.</Text>
+                    <Text>© 2022 Segundo Hogar. Todos los derechos reservados.</Text>
                     <Stack direction={'row'} spacing={6}>
                         <SocialButton label={'Twitter'} href={'#'}>
                             <FaTwitter />
