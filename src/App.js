@@ -1,10 +1,10 @@
 import { Layout } from "components/Layout";
-import { Text } from '@chakra-ui/react';
+import { Router } from 'router';
 
 export function App() {
   return (
     <Layout>
-      <Text fontSize='4xl'>Segundo Hogar</Text>
+      <Router />
     </Layout>
   );
 }
