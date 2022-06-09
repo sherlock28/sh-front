@@ -23,6 +23,7 @@ export function SocialButton({
             alignItems={'center'}
             justifyContent={'center'}
             transition={'background 0.3s ease'}
+            _focus={{ outline: "none", border: "none " }}
             _hover={{
                 bg: useColorModeValue('blackAlpha.200', 'whiteAlpha.200'),
             }}>

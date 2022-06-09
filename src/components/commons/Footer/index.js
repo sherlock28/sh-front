@@ -25,11 +25,11 @@ export function Footer() {
                 align={'center'}>
                 <Logo boxSize="80px"/>
                 <Stack direction={'row'} spacing={6}>
-                    <Link href={'#'}>Inicio</Link>
-                    <Link href={'#'}>Buscar mi hogar</Link>
-                    <Link href={'#'}>Publicar mi inmueble</Link>
-                    <Link href={'#'}>Sobre nosotros</Link>
-                    <Link href={'#'}>Contactos</Link>
+                    <Link _focus={{ outline: "none", border: "none " }} href={'#'}>Inicio</Link>
+                    <Link _focus={{ outline: "none", border: "none " }} href={'#'}>Buscar mi hogar</Link>
+                    <Link _focus={{ outline: "none", border: "none " }} href={'#'}>Publicar mi inmueble</Link>
+                    <Link _focus={{ outline: "none", border: "none " }} href={'#'}>Sobre nosotros</Link>
+                    <Link _focus={{ outline: "none", border: "none " }} href={'#'}>Contactos</Link>
                 </Stack>
             </Container>
 

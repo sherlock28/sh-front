@@ -69,8 +69,9 @@ export function Navbar() {
                         fontSize={'sm'}
                         fontWeight={400}
                         variant={'link'}
+                        _focus={{ outline: "none", border: "none " }}
                         href={'#'}>
-                        Sign In
+                        Iniciar sesión
                     </Button>
                     <Button
                         display={{ base: 'none', md: 'inline-flex' }}
@@ -78,11 +79,12 @@ export function Navbar() {
                         fontWeight={600}
                         color={'white'}
                         bg={'blue.400'}
+                        _focus={{ outline: "none", border: "none " }}
                         href={'#'}
                         _hover={{
                             bg: 'blue.300',
                         }}>
-                        Sign Up
+                        Registrarse
                     </Button>
                 </Stack>
             </Flex>

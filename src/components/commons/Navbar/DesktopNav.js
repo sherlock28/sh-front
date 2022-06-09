@@ -27,6 +27,7 @@ export function DesktopNav() {
                                 fontSize={'sm'}
                                 fontWeight={500}
                                 color={linkColor}
+                                _focus={{ outline: "none", border: "none " }}
                                 _hover={{
                                     textDecoration: 'none',
                                     color: linkHoverColor,

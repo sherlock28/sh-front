@@ -43,12 +43,17 @@ export function Landing() {
                             rounded={'full'}
                             bg={'blue.400'}
                             color={'white'}
+                            _focus={{ outline: "none", border: "none " }}
                             _hover={{
                                 bg: 'blue.500',
                             }}>
                             Buscar mi hogar
                         </Button>
-                        <Button rounded={'full'}>Publicar un inmueble</Button>
+                        <Button 
+                            _focus={{ outline: "none", border: "none " }} 
+                            rounded={'full'}>
+                            Publicar un inmueble
+                        </Button>
                     </Stack>
                 </Stack>
             </Flex>

@@ -1,6 +1,6 @@
 export const NAV_ITEMS = [
     {
-        label: 'Inspiration',
+        label: 'Inicio',
         children: [
             {
                 label: 'Explore Design Work',
@@ -30,11 +30,7 @@ export const NAV_ITEMS = [
         ],
     },
     {
-        label: 'Learn Design',
-        href: '#',
-    },
-    {
-        label: 'Hire Designers',
+        label: 'Acerca de',
         href: '#',
     },
 ];
