@@ -20,36 +20,47 @@ import {
   validateFirstname,
   validateDateOfBirth,
   validateGender,
-  validateEmailSignUp,
-  // validatePhone,
-  validatePasswordSignUp,
+  validateEmail,
+  validatePhone,
+  validatePassword,
   validateCarreer,
   validateState,
   validateCity,
-} from "config/validations";
-import ReCAPTCHA from "react-google-recaptcha";
-import { useGetState } from "hooks/useGetStates";
-import { useGetCities } from "hooks/useGetCities";
-import { useGetCarreers } from "hooks/useGetCarreers";
-import { useRegisterForm } from "../hooks/useRegisterForm";
+} from "utils/validations/SignUp/validations";
+// import ReCAPTCHA from "react-google-recaptcha";
+// import { useGetState } from "hooks/useGetStates";
+// import { useGetCities } from "hooks/useGetCities";
+// import { useGetCarreers } from "hooks/useGetCarreers";
+import { useRegisterForm } from "hooks/pages/SignUp/useRegisterForm";
 import { CustomButton } from "components/commons/CustomButton";
 
 export function RegisterForm() {
   const {
-    onChange,
+    // onChange,
     onSubmit,
     register,
     handleSubmit,
     handleShowPass,
     errors,
-    errorsCaptcha,
+    // errorsCaptcha,
     showPass,
     isFetching,
   } = useRegisterForm();
 
-  const { states } = useGetState();
-  const { carreers } = useGetCarreers();
-  const { cities, setStateSelected } = useGetCities();
+  // const { states } = useGetState();
+  // const { carreers } = useGetCarreers();
+  // const { cities, setStateSelected } = useGetCities();
+
+  const setStateSelected = (id) => {
+    if (id === "") return;
+    console.log(id)
+  }
+
+  const carreers = [{ id: 1, name: "Ingeniería en Sistemas de Información" }, { id: 2, name: "Ingeniería Mecásnica" }, { id: 3, name: "Ingeniería Civil" }, { id: 4, name: "Ingeniería Electrónica" }, { id: 5, name: "Ingeniería Eléctrica" }];
+
+  const states = [{ id: 1, name: "Tucumán"}]
+
+  const cities = [{ id: 1, name: "San Miguel de Tucumán"}]
 
   return (
     <>
@@ -153,14 +164,14 @@ export function RegisterForm() {
                 type="email"
                 placeholder="Email"
                 w="49%"
-                {...register("email", validateEmailSignUp)}
+                {...register("email", validateEmail)}
               />
               <FormErrorMessage>
                 {errors.email && errors.email.message}
               </FormErrorMessage>
             </FormControl>
 
-            {/* <FormControl m={2} isInvalid={errors.phone}>
+            <FormControl m={2} isInvalid={errors.phone}>
               <FormLabel>Ingresá tu número de celular</FormLabel>
               <Input
                 id="phone"
@@ -172,7 +183,7 @@ export function RegisterForm() {
               <FormErrorMessage>
                 {errors.phone && errors.phone.message}
               </FormErrorMessage>
-            </FormControl> */}
+            </FormControl>
           </Flex>
 
           <Flex direction={["column", "column", "row", "row", "row"]}>
@@ -183,7 +194,7 @@ export function RegisterForm() {
                   id="password"
                   type={showPass ? "text" : "password"}
                   placeholder="Contraseña"
-                  {...register("password", validatePasswordSignUp)}
+                  {...register("password", validatePassword)}
                 />
                 <InputRightElement width="4.5rem">
                   <Button h="1.75rem" size="sm" onClick={handleShowPass}>
@@ -202,7 +213,7 @@ export function RegisterForm() {
                 id="confirmPassword"
                 type={showPass ? "text" : "password"}
                 placeholder="Confirmación de contraseña"
-                {...register("confirmPassword", validatePasswordSignUp)}
+                {...register("confirmPassword", validatePassword)}
               />
               <FormErrorMessage>
                 {errors.confirmPassword && errors.confirmPassword.message}
@@ -223,7 +234,7 @@ export function RegisterForm() {
                 {carreers.map((carreer) => {
                   return (
                     <option key={carreer.id} value={carreer.id}>
-                      {carreer.nombre}
+                      {carreer.name}
                     </option>
                   );
                 })}
@@ -247,7 +258,7 @@ export function RegisterForm() {
                 {states.map((state) => {
                   return (
                     <option value={state.id} key={state.id}>
-                      {state.nombre}
+                      {state.name}
                     </option>
                   );
                 })}
@@ -268,7 +279,7 @@ export function RegisterForm() {
                 {cities.map((city) => {
                   return (
                     <option value={city.id} key={city.id}>
-                      {city.nombre}
+                      {city.name}
                     </option>
                   );
                 })}
@@ -279,7 +290,7 @@ export function RegisterForm() {
             </FormControl>
           </Flex>
 
-          <FormControl mt={10} isInvalid={errorsCaptcha.message}>
+          {/* <FormControl mt={10} isInvalid={errorsCaptcha.message}>
             <Center d="flex" flexDir="column">
               <ReCAPTCHA
                 sitekey={`${process.env.REACT_APP_SITE_KEY}`}
@@ -289,16 +300,16 @@ export function RegisterForm() {
                 {errorsCaptcha && errorsCaptcha.message}
               </FormErrorMessage>
             </Center>
-          </FormControl>
+          </FormControl> */}
 
           <Center m={8}>
             <CustomButton
               handleClick={handleSubmit(onSubmit)}
               type="submit"
               isLoading={isFetching}
-              loadingText="Registrarse"
+              loadingText="Registrando"
               width="40%"
-              textButton="Ingresar"
+              textButton="Registrarse"
             />
           </Center>
         </form>

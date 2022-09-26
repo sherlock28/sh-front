@@ -1,6 +1,11 @@
 import React from 'react';
-import { SignUpArea } from 'components/SignUp';
+import { SignUp } from 'components/SignUp';
+// import { useGetCities } from 'hooks/utils/useGetCities';
 
 export function SignUpView() {
-    return <SignUpArea />
+    // const { loading, error, cities } = useGetCities();
+
+    // console.log(cities)
+
+    return <SignUp />
 }
