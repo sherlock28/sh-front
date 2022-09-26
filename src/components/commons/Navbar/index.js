@@ -17,9 +17,17 @@ import {
 import { DesktopNav } from './DesktopNav';
 import { MobileNav } from './MobileNav';
 import { Logo } from 'components/commons/Logo';
+import { paths } from "config/paths";
+import { useLocation } from "wouter";
 
 export function Navbar() {
     const { isOpen, onToggle } = useDisclosure();
+    // eslint-disable-next-line
+    const [_, setLocation] = useLocation();
+  
+    const goTo = (to) => {
+      setLocation(to);
+    };
 
     return (
         <Box>
@@ -39,9 +47,7 @@ export function Navbar() {
                     display={{ base: 'flex', md: 'none' }}>
                     <IconButton
                         onClick={onToggle}
-                        icon={
-                            isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
-                        }
+                        icon={ isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} /> }
                         variant={'ghost'}
                         aria-label={'Toggle Navigation'}
                     />
@@ -69,8 +75,10 @@ export function Navbar() {
                         fontSize={'sm'}
                         fontWeight={400}
                         variant={'link'}
+                        _hover={{ cursor: 'pointer' }}
                         _focus={{ outline: "none", border: "none " }}
-                        href={'#'}>
+                        onClick={() => goTo(paths.login)}
+                        >
                         Iniciar sesión
                     </Button>
                     <Button
@@ -78,12 +86,11 @@ export function Navbar() {
                         fontSize={'sm'}
                         fontWeight={600}
                         color={'white'}
-                        bg={'blue.400'}
+                        bg="black"
                         _focus={{ outline: "none", border: "none " }}
-                        href={'#'}
-                        _hover={{
-                            bg: 'blue.300',
-                        }}>
+                        _hover={{ background: "#36393f" }}
+                        onClick={()=> goTo(paths.register)}
+                        > 
                         Registrarse
                     </Button>
                 </Stack>
