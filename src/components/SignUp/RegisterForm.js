@@ -28,9 +28,9 @@ import {
   validateCity,
 } from "utils/validations/SignUp/validations";
 // import ReCAPTCHA from "react-google-recaptcha";
-// import { useGetState } from "hooks/useGetStates";
-// import { useGetCities } from "hooks/useGetCities";
-// import { useGetCarreers } from "hooks/useGetCarreers";
+import { useGetCities } from "hooks/utils/useGetCities";
+import { useGetStates } from "hooks/utils/useGetStates"; 
+import { useGetCareers } from "hooks/utils/useGetCareers";
 import { useRegisterForm } from "hooks/pages/SignUp/useRegisterForm";
 import { CustomButton } from "components/commons/CustomButton";
 
@@ -47,20 +47,16 @@ export function RegisterForm() {
     isFetching,
   } = useRegisterForm();
 
-  // const { states } = useGetState();
-  // const { carreers } = useGetCarreers();
+  const { states } = useGetStates();
+  const { cities } = useGetCities();
+  const { careers } = useGetCareers();
+
   // const { cities, setStateSelected } = useGetCities();
 
   const setStateSelected = (id) => {
     if (id === "") return;
     console.log(id)
   }
-
-  const carreers = [{ id: 1, name: "Ingeniería en Sistemas de Información" }, { id: 2, name: "Ingeniería Mecásnica" }, { id: 3, name: "Ingeniería Civil" }, { id: 4, name: "Ingeniería Electrónica" }, { id: 5, name: "Ingeniería Eléctrica" }];
-
-  const states = [{ id: 1, name: "Tucumán"}]
-
-  const cities = [{ id: 1, name: "San Miguel de Tucumán"}]
 
   return (
     <>
@@ -231,7 +227,7 @@ export function RegisterForm() {
                 w={["100%", "100%", "49%", "49%", "49%"]}
                 _focus={{ background: "none" }}
               >
-                {carreers.map((carreer) => {
+                {careers?.map((carreer) => {
                   return (
                     <option key={carreer.id} value={carreer.id}>
                       {carreer.name}
@@ -255,7 +251,7 @@ export function RegisterForm() {
                 _focus={{ background: "none" }}
                 onChange={(e) => setStateSelected(e.target.value)}
               >
-                {states.map((state) => {
+                {states?.map((state) => {
                   return (
                     <option value={state.id} key={state.id}>
                       {state.name}
@@ -276,7 +272,7 @@ export function RegisterForm() {
                 {...register("city", validateCity)}
                 _focus={{ background: "none" }}
               >
-                {cities.map((city) => {
+                {cities?.map((city) => {
                   return (
                     <option value={city.id} key={city.id}>
                       {city.name}
