@@ -4,11 +4,23 @@ import {
     Heading,
     Image,
     Stack,
-    Text,
-    useBreakpointValue,
+    Text
 } from '@chakra-ui/react';
+import { useLocation } from "wouter";
+import { paths } from "config/paths";
 
 export function Landing() {
+    // eslint-disable-next-line
+    const [_, setLocation] = useLocation();
+
+    const handleSearch = () => {
+        setLocation(paths.search);
+    };
+
+    const handlePost = () => {
+        setLocation(paths.houseRegister);
+    };
+    
     return (
         <Stack minH={'70vh'} direction={{ base: 'column', md: 'row' }}>
             <Flex p={8} flex={1} align={'center'} justify={'center'}>
@@ -30,7 +42,7 @@ export function Landing() {
                             Freelance
                         </Text> */}
                         <br />{' '}
-                        <Text color={'blue.400'} as={'span'}>
+                        <Text color={'black'} as={'span'}>
                             Tu sitio para encontrar tu hogar
                         </Text>{' '}
                     </Heading>
@@ -40,17 +52,20 @@ export function Landing() {
                     </Text>
                     <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
                         <Button
-                            rounded={'full'}
-                            bg={'blue.400'}
+                            onClick={handleSearch}
                             color={'white'}
+                            bg="black"
                             _focus={{ outline: "none", border: "none " }}
-                            _hover={{
-                                bg: 'blue.500',
-                            }}>
+                            _hover={{ background: "#36393f" }}
+                            rounded={'full'}>
                             Buscar mi hogar
                         </Button>
-                        <Button 
-                            _focus={{ outline: "none", border: "none " }} 
+                        <Button
+                            onClick={handlePost}
+                            color={'white'}
+                            bg="blue.400"
+                            _focus={{ outline: "none", border: "none " }}
+                            _hover={{ background: "#36393f" }}
                             rounded={'full'}>
                             Publicar un inmueble
                         </Button>
