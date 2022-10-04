@@ -1,18 +1,7 @@
 export const NAV_ITEMS = [
     {
         label: 'Inicio',
-        children: [
-            {
-                label: 'Explore Design Work',
-                subLabel: 'Trending Design to inspire you',
-                href: '#',
-            },
-            {
-                label: 'New & Noteworthy',
-                subLabel: 'Up-and-coming Designers',
-                href: '#',
-            },
-        ],
+        href: '/',
     },
     {
         label: 'Find Work',
