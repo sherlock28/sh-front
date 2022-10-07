@@ -3,6 +3,7 @@ export const paths = {
     login: "/login",
     register: "/registro",
     account: "/micuenta",
+    ownerAccount: "propietario/micuenta",
     aboutUs: "/acerca",
     contacts: "/contactos",
     why: "/porque",
@@ -14,4 +15,3 @@ export const paths = {
     forgetterpass: "/recuperar",
     members: "/integrantes",
   };
-  
