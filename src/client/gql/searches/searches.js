@@ -47,24 +47,29 @@ query SearchForCards($limit: Int, $offset: Int) {
 `;
 
 export const SEARCH_FOR_DETAILS = gql`
-    query SearchForDetails {
-        sh_publications {
+query SearchForDetails($id: Int) {
+    sh_publications(where: {id: {_eq: $id}}) {
+        id
+        title
+        price
+        ownership {
             id
-            title
-            price
-            ownership {
-                id
-                rooms
-                bathrooms
-                rating
-                ownerships_images {
-                    imageurl
-                }
-                coordinate {
-                    lat
-                    lon
-                }
+            rooms
+            bathrooms
+            rating
+            size
+            ownerships_images {
+                public_id
+                imageurl
+            }
+            coordinate {
+                lat
+                lon
+            }
+            ownerships_type {
+                description
             }
         }
     }
+}
 `;
