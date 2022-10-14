@@ -1,7 +1,6 @@
-import React from 'react';
+import React from "react";
+import { HouseRegister } from "components/HouseRegister";
 
 export function HouseRegisterView() {
-    return (
-        <div>House Register</div>
-    )
+    return <HouseRegister />
 }
