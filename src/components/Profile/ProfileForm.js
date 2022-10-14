@@ -24,7 +24,7 @@ import { useProfileForm } from "hooks/pages/Profile/useProfileForm";
 import { useGetCareers } from "hooks/utils/useGetCareers";
 import { useGetStates } from "hooks/utils/useGetStates";
 import { useGetCities } from "hooks/utils/useGetCities";
-
+import { CustomButton } from "components/commons/CustomButton";
 
 export function ProfileForm() {
 
@@ -32,7 +32,7 @@ export function ProfileForm() {
   const { cities } = useGetCities();
   const { states } = useGetStates();
 
-  const { register, handleSubmit, onSubmit, onCancel, errors } = useProfileForm();
+  const { register, handleSubmit, onSubmit, onCancel, errors, isSubmitting } = useProfileForm();
 
   return (
     <>
@@ -147,7 +147,7 @@ export function ProfileForm() {
                   placeholder="Selecciona..."
                   {...register("state", validateState)}
                   _focus={{ background: "none" }}
-                  // onChange={(e) => setStateSelected(e.target.value)}
+                // onChange={(e) => setStateSelected(e.target.value)}
                 >
                   {states?.map((state) => {
                     return (
@@ -186,31 +186,26 @@ export function ProfileForm() {
           </Box>
         </form>
       </Flex>
-      <Center>
+      <Flex justifyContent="center">
         <Button
           onClick={onCancel}
           type="submit"
           isLoading={false}
-          loadingText="Enviando"
           width="20%"
-          mt={8}
-          mx={2}
+          margin={2}
         >
           Cancelar
         </Button>
-        <Button
-          onClick={handleSubmit(onSubmit)}
-          colorScheme={"twitter"}
+        <CustomButton
+          handleClick={handleSubmit(onSubmit)}
           type="submit"
-          isLoading={false}
-          loadingText="Enviando"
+          isLoading={isSubmitting}
+          loadingText="Guardando"
           width="20%"
-          mt={8}
-          mx={2}
-        >
-          Actualizar
-        </Button>
-      </Center>
+          textButton="Guardar"
+          margin={2}
+        />
+      </Flex>
     </>
   );
 }
