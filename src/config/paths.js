@@ -8,10 +8,10 @@ export const paths = {
     contacts: "/contactos",
     why: "/porque",
     houseRegister: "/inmuebles/registrar",
-    postRegister: "/publicaciones/registrar",
+    publicationRegister: "/publicaciones/registrar",
     search: "/buscar",
-    postList: "/publicaciones",
-    postDetail: "/publicaciones/detalle/:id",
+    publicationsList: "/publicaciones",
+    publicationDetail: "/publicaciones/detalle/:id",
     forgetterpass: "/recuperar",
     members: "/integrantes",
   };
