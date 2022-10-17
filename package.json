@@ -26,6 +26,7 @@
     "redux": "4.1.2",
     "redux-persist": "6.0.0",
     "redux-thunk": "2.4.1",
+    "swiper": "8.4.4",
     "web-vitals": "^2.1.4",
     "wouter": "2.8.0-alpha.2"
   },
