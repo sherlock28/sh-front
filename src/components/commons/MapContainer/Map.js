@@ -10,11 +10,15 @@ import { MAP_STYLES } from "config/map";
 function getCoordinates(post) {
     let position = {};
     
-    if (post.coordinates === undefined) return position;
-    
-    position.lat = +post.coordinates.lat;
-    position.lng = +post.coordinates.lng;
+    if (post.ownership.coordinate !== undefined && post.ownership.coordinate?.lat === undefined || post.ownership.coordinate?.lon === undefined) {
+        return position;
+    }
 
+    position.lat = +post.ownership.coordinate?.lat;
+    position.lng = +post.ownership.coordinate?.lon;
+    
+    console.log(position)
+    
     return position;
 }
 

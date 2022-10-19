@@ -6,6 +6,8 @@ import { SignUpView } from "views/SignUp";
 import { ProfileView } from "views/Profile";
 import { ForgotterPassView } from "views/ForgotterPass";
 import { SearchView } from "views/Search";
+import { PublicationDetailView } from "views/PublicationDetail";
+import { AboutUsView } from "views/AboutUs";
 import { MembersView } from "views/Members";
 import { HouseRegisterView } from "views/HouseRegister";
 import { PublicationRegisterView } from "views/PublicationRegister";
@@ -20,9 +22,11 @@ export function Router() {
       <Route path={paths.account} component={ProfileView} exact />
       <Route path={paths.forgetterpass} component={ForgotterPassView} exact />
       <Route path={paths.search} component={SearchView} exact />
+      <Route path={paths.publicationDetail} component={PublicationDetailView} exact />
       <Route path={paths.houseRegister} component={HouseRegisterView} exact />
-      <Route path={paths.postRegister} component={PublicationRegisterView} exact />
+      <Route path={paths.publicationRegister} component={PublicationRegisterView} exact />
       <Route path={paths.members} component={MembersView} exact />
+      <Route path={paths.aboutUs} component={AboutUsView} exact />
       <Route>404, Not Found!</Route>
     </Switch>
   )

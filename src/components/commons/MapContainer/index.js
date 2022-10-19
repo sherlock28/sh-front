@@ -15,7 +15,7 @@ export function MapContainer(props) {
                 zoom={props.zoom}
                 isMarkerShown={props.isMarkerShown}
                 center={props.initialCenter}
-                posts={props.posts} />
+                posts={props?.posts} />
         </Container>
     );
 }
