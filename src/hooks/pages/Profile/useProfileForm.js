@@ -4,7 +4,7 @@ export function useProfileForm() {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isSubmitting },
     } = useForm();
 
     const onSubmit = (data) => {
@@ -23,5 +23,6 @@ export function useProfileForm() {
         onSubmit,
         onCancel,
         errors,
+        isSubmitting
     };
 }
