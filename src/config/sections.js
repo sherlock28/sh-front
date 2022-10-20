@@ -43,5 +43,9 @@ export const sections = {
     registerPublication: {
         section: "RegisterPublication",
         title: "Publica tu inmueble",
+    },
+    findRoommate: {
+        section: "FindRoommate",
+        title: "Busca un compañero",
     }
 };
