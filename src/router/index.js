@@ -11,6 +11,7 @@ import { AboutUsView } from "views/AboutUs";
 import { MembersView } from "views/Members";
 import { HouseRegisterView } from "views/HouseRegister";
 import { PublicationRegisterView } from "views/PublicationRegister";
+import { FindRoommateView } from "views/FindRoommate";
 import { paths } from "config/paths";
 
 export function Router() {
@@ -27,6 +28,7 @@ export function Router() {
       <Route path={paths.publicationRegister} component={PublicationRegisterView} exact />
       <Route path={paths.members} component={MembersView} exact />
       <Route path={paths.aboutUs} component={AboutUsView} exact />
+      <Route path={paths.findRoommate} component={FindRoommateView} exact />
       <Route>404, Not Found!</Route>
     </Switch>
   )
