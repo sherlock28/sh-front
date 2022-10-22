@@ -45,7 +45,7 @@ export function Footer() {
                     spacing={4}
                     justify={{ base: 'center', md: 'space-between' }}
                     align={{ base: 'center', md: 'center' }}>
-                    <Text>© 2022 Segundo Hogar. Todos los derechos reservados.</Text>
+                    <Text>© {(new Date()).getFullYear()} Segundo Hogar. Todos los derechos reservados.</Text>
                     <Stack direction={'row'} spacing={6}>
                         <SocialButton label={'Twitter'} href={'#'}>
                             <FaTwitter />

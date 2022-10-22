@@ -53,6 +53,10 @@ export function SectionHeader({ section, sectionTitle, isOwner }) {
     title = (<Heading>{sectionTitle}</Heading>);
   }
 
+  if (section === "FindRoommate") {
+    title = (<Heading>{sectionTitle}</Heading>);
+  }
+
   return (
     <Box textAlign="center">
       {title}
