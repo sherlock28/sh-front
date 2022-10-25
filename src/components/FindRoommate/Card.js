@@ -11,22 +11,21 @@ import {
     Button,
     useColorModeValue
 } from "@chakra-ui/react";
-import { Link } from "wouter";
 
 export function Card({ recomm }) {
 
     const [_, setLocation] = useLocation();
 
     const redirectToProfile = () => {
-        setLocation(`/cuenta/${recomm.username}`);
+        setLocation(`/roommate/${recomm.username}`);
     }
 
-    console.log(recomm)
     return (
 
         <Center py={6}>
             <Box
                 maxW={'320px'}
+                minH={'455px'}
                 w={'full'}
                 bg={useColorModeValue('white', 'gray.900')}
                 boxShadow={'2xl'}
@@ -41,44 +40,30 @@ export function Card({ recomm }) {
                     pos={'relative'}
                 />
                 <Heading fontSize={'2xl'} fontFamily={'body'}>
-                    Lindsey James
+                    {recomm.name}
                 </Heading>
                 <Text fontWeight={600} color={'gray.500'} mb={4}>
-                    @lindsey_jam3s
+                    {recomm.username}
                 </Text>
                 <Text
                     textAlign={'center'}
+                    minH={'72px'}
                     color={useColorModeValue('gray.700', 'gray.400')}
                     px={3}>
-                    Actress, musician, songwriter and artist. PM for work inquires or{' '}
-                    <Link href={'#'} color={'blue.400'}>
-                        #tag
-                    </Link>{' '}
-                    me in your posts
+                    {recomm.bio}
                 </Text>
 
                 <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
-                    <Badge
-                        px={2}
-                        py={1}
-                        bg={useColorModeValue('gray.50', 'gray.800')}
-                        fontWeight={'400'}>
-                        #art
-                    </Badge>
-                    <Badge
-                        px={2}
-                        py={1}
-                        bg={useColorModeValue('gray.50', 'gray.800')}
-                        fontWeight={'400'}>
-                        #photography
-                    </Badge>
-                    <Badge
-                        px={2}
-                        py={1}
-                        bg={useColorModeValue('gray.50', 'gray.800')}
-                        fontWeight={'400'}>
-                        #music
-                    </Badge>
+                    {recomm.tags.map(tag => {
+                        return (
+                            <Badge
+                                key={tag}
+                                px={2}
+                                py={1}
+                                fontWeight={'400'}>
+                                {`#${tag}`}
+                            </Badge>)
+                    })}
                 </Stack>
 
                 <Stack mt={8} direction={'row'} spacing={4}>
@@ -100,6 +85,3 @@ export function Card({ recomm }) {
         </Center>
     );
 }
-
-{/* <Link href={`/cuenta/${recomms.username}`}>
-</Link> */}
