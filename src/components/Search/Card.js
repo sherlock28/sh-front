@@ -61,7 +61,7 @@ export function Card({ post }) {
                             .map((_, i) => (
                                 <StarIcon
                                     key={i}
-                                    color={i < post.ownership?.rating ? "teal.500" : "gray.300"}
+                                    color={i < post.ownership?.rating ? "blue.400" : "gray.300"}
                                 />
                             ))}
                         {/* <Box as="span" ml="2" color="gray.600" fontSize="sm">
