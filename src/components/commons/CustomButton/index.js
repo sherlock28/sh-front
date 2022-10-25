@@ -11,7 +11,7 @@ export function CustomButton({ width, textButton, isLoading, handleClick, margin
             color="white"
             width={width}
             margin={margin}
-            _hover={{ background: "#36393f" }}
+            _hover={{ background: "#36393f", transform: 'translateY(-2px)',  boxShadow: 'lg' }}
             _focus={{ outline: "none", border: "none " }}
         >
             {textButton}
