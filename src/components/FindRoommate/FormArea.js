@@ -3,7 +3,7 @@ import { Box, Flex } from "@chakra-ui/react";
 
 export function FormArea({ children }) {
     return (
-        <Flex minHeight="75vh" width="full" align="start" my={2} justifyContent="center">
+        <Flex minHeight="30vh" width="full" align="start" my={2} justifyContent="center">
             <Box
                 borderWidth={1}
                 px={2}
