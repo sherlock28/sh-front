@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Box,
     Flex,
@@ -6,7 +6,12 @@ import {
     FormControl,
     FormLabel,
     Select,
-    Center
+    Center,
+    RangeSlider,
+    RangeSliderTrack,
+    RangeSliderFilledTrack,
+    RangeSliderThumb,
+    Tooltip
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { CustomButton } from "components/commons/CustomButton";
@@ -16,10 +21,20 @@ import { useGetCareers } from "hooks/utils/useGetCareers";
 
 export function FindRoommateForm() {
 
+    const [ageRange, setAgeRange] = useState([18, 40]);
+    const [showStartTooltip, setShowStartTooltip] = useState(false);
+    const [showEndTooltip, setShowEndTooltip] = useState(false);
+
     const {
+        handleSubmit,
         register,
         formState: { errors },
     } = useForm();
+
+    const searchSubmit = (filters) => {
+        filters.ageRange = ageRange;
+        console.log(filters);
+    }
 
     const { states } = useGetStates();
     const { cities } = useGetCities();
@@ -27,7 +42,7 @@ export function FindRoommateForm() {
 
     const setStateSelected = (id) => {
         if (id === "") return;
-        console.log(id)
+        console.log(id);
     }
 
     return (
@@ -58,7 +73,6 @@ export function FindRoommateForm() {
                             name="carreer"
                             placeholder="Selecciona..."
                             {...register("carreer")}
-                            width={["100%", "100%", "49%", "49%", "49%"]}
                             _focus={{ background: "none" }}
                         >
                             {careers?.map((carreer) => {
@@ -72,6 +86,47 @@ export function FindRoommateForm() {
                         <FormErrorMessage>
                             {errors.carreer && errors.carreer.message}
                         </FormErrorMessage>
+                    </FormControl>
+                    <FormControl m={2}>
+                        <FormLabel>Edad</FormLabel>
+                        <RangeSlider
+                            aria-label={['min', 'max']}
+                            colorScheme='blackAlpha'
+                            defaultValue={[18, 30]}
+                            onChangeEnd={(range) => setAgeRange(range)}
+                        >
+                            <RangeSliderTrack>
+                                <RangeSliderFilledTrack />
+                            </RangeSliderTrack>
+
+                            <Tooltip
+                                hasArrow
+                                bg='black'
+                                color='white'
+                                placement='top'
+                                isOpen={showStartTooltip}
+                                label={ageRange[0]}
+                            >
+                                <RangeSliderThumb
+                                    index={0}
+                                    onMouseEnter={() => setShowStartTooltip(true)}
+                                    onMouseLeave={() => setShowStartTooltip(false)} />
+                            </Tooltip>
+
+                            <Tooltip
+                                hasArrow
+                                bg='black'
+                                color='white'
+                                placement='top'
+                                isOpen={showEndTooltip}
+                                label={ageRange[1]}
+                            >
+                                <RangeSliderThumb
+                                    index={1}
+                                    onMouseEnter={() => setShowEndTooltip(true)}
+                                    onMouseLeave={() => setShowEndTooltip(false)} />
+                            </Tooltip>
+                        </RangeSlider>
                     </FormControl>
                 </Flex>
 
@@ -122,7 +177,7 @@ export function FindRoommateForm() {
 
                 <Center m={8}>
                     <CustomButton
-                        // handleClick={handleSubmit(onSubmit)}
+                        handleClick={handleSubmit(searchSubmit)}
                         type="submit"
                         // isLoading={isSubmitting}
                         loadingText="Buscando..."
