@@ -13,14 +13,18 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   Flex,
+  RangeSlider,
+  RangeSliderTrack,
+  RangeSliderFilledTrack,
+  RangeSliderThumb,
+  Tooltip
 } from "@chakra-ui/react";
-import { RangeSlider } from "./RangeSlider";
 // import { useDispatch } from "react-redux";
 // import { fetchPublicationsByFilters } from "reducers/publicationSlice";
 import { CustomButton } from "components/commons/CustomButton";
 
 export function SearchForm() {
-//   const dispatch = useDispatch();
+  //   const dispatch = useDispatch();
 
   const [typeHouse, setTypeHouse] = useState("Departamento");
   const [isFurnished, setIsFurnished] = useState(true);
@@ -28,8 +32,9 @@ export function SearchForm() {
   const [bathrooms, setBathrooms] = useState(1);
   const [size, setSize] = useState(40);
 
-  const [min, setMin] = useState(0);
-  const [max, setMax] = useState(0);
+  const [priceRange, setPriceRange] = useState([18000, 40000]);
+  const [showStartTooltip, setShowStartTooltip] = useState(false);
+  const [showEndTooltip, setShowEndTooltip] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,8 +49,6 @@ export function SearchForm() {
       bedrooms,
       bathrooms,
       size,
-      min,
-      max,
     };
     console.log(filters);
     // dispatch(fetchPublicationsByFilters(filters));
@@ -141,8 +144,48 @@ export function SearchForm() {
         </FormControl>
       </Flex>
 
-      <FormControl mt={8}>
-        <RangeSlider setMin={setMin} setMax={setMax} />
+      <FormControl m={2}>
+        <FormLabel>Precio</FormLabel>
+        <RangeSlider
+          aria-label={['min', 'max']}
+          colorScheme='blackAlpha'
+          min={10000}
+          max={100000}
+          defaultValue={[18000, 40000]}
+          onChangeEnd={(range) => setPriceRange(range)}
+        >
+          <RangeSliderTrack>
+            <RangeSliderFilledTrack />
+          </RangeSliderTrack>
+
+          <Tooltip
+            hasArrow
+            bg='black'
+            color='white'
+            placement='top'
+            isOpen={showStartTooltip}
+            label={priceRange[0]}
+          >
+            <RangeSliderThumb
+              index={0}
+              onMouseEnter={() => setShowStartTooltip(true)}
+              onMouseLeave={() => setShowStartTooltip(false)} />
+          </Tooltip>
+
+          <Tooltip
+            hasArrow
+            bg='black'
+            color='white'
+            placement='top'
+            isOpen={showEndTooltip}
+            label={priceRange[1]}
+          >
+            <RangeSliderThumb
+              index={1}
+              onMouseEnter={() => setShowEndTooltip(true)}
+              onMouseLeave={() => setShowEndTooltip(false)} />
+          </Tooltip>
+        </RangeSlider>
       </FormControl>
 
       <Center mt={8}>
