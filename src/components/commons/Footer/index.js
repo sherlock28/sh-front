@@ -1,15 +1,16 @@
+import React from 'react';
 import {
     Box,
     Container,
-    Link,
     Stack,
     Text,
     useColorModeValue
 } from '@chakra-ui/react';
+import { Link } from "wouter";
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
 import { Logo } from 'components/commons/Logo';
 import { SocialButton } from './SocialButton';
-import React from 'react';
+import { paths } from "config/paths";
 
 export function Footer() {
     return (
@@ -25,11 +26,11 @@ export function Footer() {
                 align={'center'}>
                 <Logo boxSize="80px"/>
                 <Stack direction={'row'} spacing={6}>
-                    <Link _focus={{ outline: "none", border: "none " }} href={'#'}>Inicio</Link>
-                    <Link _focus={{ outline: "none", border: "none " }} href={'#'}>Buscar mi hogar</Link>
-                    <Link _focus={{ outline: "none", border: "none " }} href={'#'}>Publicar mi inmueble</Link>
-                    <Link _focus={{ outline: "none", border: "none " }} href={'#'}>Sobre nosotros</Link>
-                    <Link _focus={{ outline: "none", border: "none " }} href={'#'}>Contactos</Link>
+                    <Link href={paths.landing}>Inicio</Link>
+                    <Link href={paths.search}>Buscar mi hogar</Link>
+                    <Link href={paths.houseRegister}>Publicar mi inmueble</Link>
+                    <Link href={paths.members}>Sobre nosotros</Link>
+                    <Link href={paths.contacts}>Contactos</Link>
                 </Stack>
             </Container>
 
@@ -47,13 +48,13 @@ export function Footer() {
                     align={{ base: 'center', md: 'center' }}>
                     <Text>© {(new Date()).getFullYear()} Segundo Hogar. Todos los derechos reservados.</Text>
                     <Stack direction={'row'} spacing={6}>
-                        <SocialButton label={'Twitter'} href={'#'}>
+                        <SocialButton label={'Twitter'} href={'https://twitter.com'}>
                             <FaTwitter />
                         </SocialButton>
-                        <SocialButton label={'YouTube'} href={'#'}>
+                        <SocialButton label={'YouTube'} href={'https://youtube.com'}>
                             <FaYoutube />
                         </SocialButton>
-                        <SocialButton label={'Instagram'} href={'#'}>
+                        <SocialButton label={'Instagram'} href={'https://instagram.com'}>
                             <FaInstagram />
                         </SocialButton>
                     </Stack>

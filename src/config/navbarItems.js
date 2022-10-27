@@ -19,7 +19,11 @@ export const NAV_ITEMS = [
         ],
     },
     {
+        label: 'Nosotros',
+        href: '/integrantes',
+    },
+    {
         label: 'Acerca de',
-        href: '#',
+        href: '/acerca',
     },
 ];

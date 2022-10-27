@@ -18,7 +18,7 @@ import { paths } from "config/paths";
 export function Router() {
   return (
     <Switch>
-      <Route path={paths.lading} component={LandingView} exact />
+      <Route path={paths.landing} component={LandingView} exact />
       <Route path={paths.login} component={SignInView} exact />
       <Route path={paths.register} component={SignUpView} exact />
       <Route path={paths.account} component={ProfileView} exact />
