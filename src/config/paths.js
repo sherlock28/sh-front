@@ -2,6 +2,7 @@ export const paths = {
     landing: "/",
     login: "/login",
     register: "/registro",
+    tags: "/registro/tags",
     account: "/cuenta/:username",
     roommateAccount: "/roommate/:username",
     ownerAccount: "/propietario/cuenta/:id",
