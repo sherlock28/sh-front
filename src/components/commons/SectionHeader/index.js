@@ -37,6 +37,10 @@ export function SectionHeader({ section, sectionTitle, isOwner }) {
     );
   }
 
+  if (section === "Tags") {
+    title = (<Heading>{sectionTitle}</Heading>);
+  }
+
   if (section === "Profile") {
     title = (<Heading>{sectionTitle}</Heading>);
   }
