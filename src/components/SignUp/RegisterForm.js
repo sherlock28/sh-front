@@ -224,7 +224,6 @@ export function RegisterForm() {
                 name="carreer"
                 placeholder="Selecciona..."
                 {...register("carreer", validateCarreer)}
-                w={["100%", "100%", "49%", "49%", "49%"]}
                 _focus={{ background: "none" }}
               >
                 {careers?.map((carreer) => {
@@ -239,9 +238,6 @@ export function RegisterForm() {
                 {errors.carreer && errors.carreer.message}
               </FormErrorMessage>
             </FormControl>
-          </Flex>
-
-          <Flex direction={["column", "column", "row", "row", "row"]}>
             <FormControl m={2} isInvalid={errors.state}>
               <FormLabel>Selecciona tu provincia origen</FormLabel>
               <Select
@@ -263,8 +259,11 @@ export function RegisterForm() {
                 {errors.state && errors.state.message}
               </FormErrorMessage>
             </FormControl>
+          </Flex>
 
-            <FormControl m={2} isInvalid={errors.city}>
+          {/*<Flex direction={["column", "column", "row", "row", "row"]}>
+
+             <FormControl m={2} isInvalid={errors.city}>
               <FormLabel>Selecciona tu ciudad origen</FormLabel>
               <Select
                 name="city"
@@ -284,8 +283,8 @@ export function RegisterForm() {
                 {errors.city && errors.city.message}
               </FormErrorMessage>
             </FormControl>
-          </Flex>
-
+          </Flex>*/}
+          
           {/* <FormControl mt={10} isInvalid={errorsCaptcha.message}>
             <Center d="flex" flexDir="column">
               <ReCAPTCHA
