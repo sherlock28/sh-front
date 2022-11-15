@@ -3,6 +3,7 @@ export const paths = {
     login: "/login",
     register: "/registro",
     tags: "/registro/tags",
+    questions: "/registro/preguntas",
     account: "/cuenta/:username",
     roommateAccount: "/roommate/:username",
     ownerAccount: "/propietario/cuenta/:id",
