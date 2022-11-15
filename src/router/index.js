@@ -3,6 +3,7 @@ import { Route, Switch } from "wouter";
 import { LandingView } from "views/Landing";
 import { SignInView } from "views/SignIn";
 import { TagsView } from "views/Tags";
+import { QuestionsView } from "views/Questions";
 import { SignUpView } from "views/SignUp";
 import { ProfileView } from "views/Profile";
 import { ForgotterPassView } from "views/ForgotterPass";
@@ -23,6 +24,7 @@ export function Router() {
       <Route path={paths.login} component={SignInView} exact />
       <Route path={paths.register} component={SignUpView} exact />
       <Route path={paths.tags} component={TagsView} exact />
+      <Route path={paths.questions} component={QuestionsView} exact />
       <Route path={paths.account} component={ProfileView} exact />
       <Route path={paths.forgetterpass} component={ForgotterPassView} exact />
       <Route path={paths.search} component={SearchView} exact />
