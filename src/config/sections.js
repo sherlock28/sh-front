@@ -36,6 +36,10 @@ export const sections = {
         section: "Register",
         title: "Registrarme como ",
     },
+    questions: {
+        section: "Questions",
+        title: "Estilo de vida",
+    },
     tags: {
         section: "Tags",
         title: "Elige tus intereses",
