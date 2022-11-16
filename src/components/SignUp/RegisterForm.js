@@ -29,7 +29,7 @@ import {
 } from "utils/validations/SignUp/validations";
 // import ReCAPTCHA from "react-google-recaptcha";
 import { useGetCities } from "hooks/utils/useGetCities";
-import { useGetStates } from "hooks/utils/useGetStates"; 
+import { useGetStates } from "hooks/utils/useGetStates";
 import { useGetCareers } from "hooks/utils/useGetCareers";
 import { useRegisterForm } from "hooks/pages/SignUp/useRegisterForm";
 import { CustomButton } from "components/commons/CustomButton";
@@ -224,6 +224,7 @@ export function RegisterForm() {
                 name="carreer"
                 placeholder="Selecciona..."
                 {...register("carreer", validateCarreer)}
+                width={["100%", "100%", "49%", "49%", "49%"]}
                 _focus={{ background: "none" }}
               >
                 {careers?.map((carreer) => {
@@ -238,6 +239,9 @@ export function RegisterForm() {
                 {errors.carreer && errors.carreer.message}
               </FormErrorMessage>
             </FormControl>
+          </Flex>
+
+          <Flex direction={["column", "column", "row", "row", "row"]}>
             <FormControl m={2} isInvalid={errors.state}>
               <FormLabel>Selecciona tu provincia origen</FormLabel>
               <Select
@@ -259,11 +263,8 @@ export function RegisterForm() {
                 {errors.state && errors.state.message}
               </FormErrorMessage>
             </FormControl>
-          </Flex>
 
-          {/*<Flex direction={["column", "column", "row", "row", "row"]}>
-
-             <FormControl m={2} isInvalid={errors.city}>
+            <FormControl m={2} isInvalid={errors.city}>
               <FormLabel>Selecciona tu ciudad origen</FormLabel>
               <Select
                 name="city"
@@ -283,8 +284,8 @@ export function RegisterForm() {
                 {errors.city && errors.city.message}
               </FormErrorMessage>
             </FormControl>
-          </Flex>*/}
-          
+          </Flex>
+
           {/* <FormControl mt={10} isInvalid={errorsCaptcha.message}>
             <Center d="flex" flexDir="column">
               <ReCAPTCHA

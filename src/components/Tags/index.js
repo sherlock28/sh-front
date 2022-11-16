@@ -61,23 +61,11 @@ export function Tags() {
                         <Center>
                             <CustomButton
                                 handleClick={() => { }}
-                                background="blackAlpha.100"
-                                color="black"
-                                hoverBg="blackAlpha.300"
                                 type="submit"
                                 isLoading={false}
                                 loadingText="Enviando"
                                 width="30%"
-                                margin="5"
-                                textButton="Omitir"
-                            />
-                            <CustomButton
-                                handleClick={() => { }}
-                                type="submit"
-                                isLoading={false}
-                                loadingText="Enviando"
-                                width="30%"
-                                textButton="Siguiente"
+                                textButton="Registrar"
                             />
                         </Center>
                     </Stack>
