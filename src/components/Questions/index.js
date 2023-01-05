@@ -25,7 +25,8 @@ const labelStyles = {
     fontSize: 'sm',
 }
 
-export function Questions() {
+export function Questions({ fromPage }) {
+    
     const [tidyLevel, setTidyLevel] = useState(3);
     const [visitsLevel, setVisitsLevel] = useState(3);
     const [walkLevel, setWalkLevel] = useState(3);
@@ -33,13 +34,18 @@ export function Questions() {
     const [smokerLevel, setSmokerLevel] = useState(3);
     const [petsLevel, setPetsLevel] = useState(3);
 
+    const SIGUIENTE = "Siguiente";
+    const GUARDAR = "Guardar";
+
+    const textButton = fromPage !== "profile" ? SIGUIENTE : GUARDAR;
+
     return (
         <Flex align={'center'} justify={'center'}>
             <Stack spacing={8} py={12} px={6} >
 
-                <Stack align={'center'}>
+                {fromPage !== 'profile' ? (<Stack align={'center'}>
                     <SectionHeader section={questions.section} sectionTitle={questions.title} />
-                </Stack>
+                </Stack>) : ""}
 
                 <Box rounded={'lg'} bg={useColorModeValue('white', 'gray.700')} boxShadow={'lg'} p={8}>
 
@@ -222,26 +228,29 @@ export function Questions() {
 
                     <Stack spacing={10} mt={10}>
                         <Center>
+                            {
+                                fromPage !== 'profile' ?
+                                    <CustomButton
+                                        handleClick={() => { }}
+                                        background="blackAlpha.100"
+                                        color="black"
+                                        hoverBg="blackAlpha.300"
+                                        type="submit"
+                                        isLoading={false}
+                                        loadingText="Enviando"
+                                        width="30%"
+                                        margin="5"
+                                        textButton="Omitir"
+                                    /> : ""
+                            }
                             <CustomButton
                                 handleClick={() => { }}
-                                background="blackAlpha.100"
-                                color="black"
-                                hoverBg="blackAlpha.300"
                                 type="submit"
                                 isLoading={false}
                                 loadingText="Enviando"
                                 width="30%"
                                 margin="5"
-                                textButton="Omitir"
-                            />
-                            <CustomButton
-                                handleClick={() => { }}
-                                type="submit"
-                                isLoading={false}
-                                loadingText="Enviando"
-                                width="30%"
-                                margin="5"
-                                textButton="Siguiente"
+                                textButton={textButton}
                             />
                         </Center>
                     </Stack>
