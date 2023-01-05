@@ -3,10 +3,15 @@ import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
 import { SectionHeader } from "components/commons/SectionHeader";
 import { ProfileForm } from "./ProfileForm";
 import { PublicationsList } from "./PublicationsList";
+import { Tags } from "components/Tags";
+import { Questions } from 'components/Questions';
 import { sections } from "config/sections";
 
+const PAGE = "profile";
+
 export function AccountTabs() {
-  const { profile } = sections;
+  
+  const { profile, tags, questions } = sections;
 
   return (
     <>
@@ -14,6 +19,8 @@ export function AccountTabs() {
         <TabList>
           <Tab>Mi cuenta</Tab>
           <Tab>Publicaciones</Tab>
+          <Tab>Intereses</Tab>
+          <Tab>Preguntas</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -29,6 +36,20 @@ export function AccountTabs() {
               sectionTitle={profile.titlePublications}
             />
             <PublicationsList />
+          </TabPanel>
+          <TabPanel>
+            <SectionHeader
+              section={tags.section}
+              sectionTitle={tags.title}
+            />
+            <Tags fromPage={PAGE} />
+          </TabPanel>
+          <TabPanel>
+            <SectionHeader
+              section={questions.section}
+              sectionTitle={questions.title}
+            />
+            <Questions fromPage={PAGE} />
           </TabPanel>
         </TabPanels>
       </Tabs>
