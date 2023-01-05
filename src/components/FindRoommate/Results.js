@@ -6,7 +6,7 @@ export function Results({ recomms }) {
 
     return (
         <SimpleGrid columns={[1, 1, 2, 2, 3]} spacing="40px">
-            {recomms?.map(recomm => <Card recomm={recomm} key={recomm.id} />)}
+            {recomms?.map(recomm => <Card recomm={recomm} key={recomm.id_person} />)}
         </SimpleGrid>
     )
 }
