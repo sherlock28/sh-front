@@ -11,13 +11,14 @@ import { CustomButton } from "components/commons/CustomButton";
 import { SectionHeader } from "components/commons/SectionHeader";
 import { sections } from "config/sections";
 
-export function Tags() {
+const REGISTAR = "Registrar";
+const GUARDAR = "Guardar";
+
+export function Tags({ fromPage }) {
 
     const [selectedTags, setSelectedTags] = useState([]);
 
     const allTags = ['Comedia', 'Entretenimiento', 'Juegos', 'Deporte', 'Baile', 'Animes y cómics', 'Vida cotidiana', 'Automoción y vehículos', 'Música', 'Animales', 'Ciencia y educacíon', 'Comida y bebida', 'Familia', 'Belleza y estilo', 'Fitness y salud', 'Arte', 'Hogar y jardín', 'Trucos para la vida cotidiana', 'Motivición y consejos', 'Viajes', 'Actividades al aire libre'];
-
-    // #D8D8D8
 
     const selectTag = (tag) => {
         setSelectedTags([...selectedTags, tag]);
@@ -27,13 +28,15 @@ export function Tags() {
 
     const { tags } = sections;
 
+    const textButton = fromPage !== "profile" ? REGISTAR : GUARDAR;
+
     return (
         <Flex align={'center'} justify={'center'}>
             <Stack spacing={8} py={12} px={6} >
 
-                <Stack align={'center'}>
+                {fromPage !== 'profile' ? <Stack align={'center'}>
                     <SectionHeader section={tags.section} sectionTitle={tags.title} />
-                </Stack>
+                </Stack> : ""}
 
                 <Box rounded={'lg'} bg={useColorModeValue('white', 'gray.700')} boxShadow={'lg'} p={8}>
 
@@ -65,7 +68,7 @@ export function Tags() {
                                 isLoading={false}
                                 loadingText="Enviando"
                                 width="30%"
-                                textButton="Registrar"
+                                textButton={textButton}
                             />
                         </Center>
                     </Stack>
