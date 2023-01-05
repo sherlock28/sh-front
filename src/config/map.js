@@ -1,5 +1,7 @@
 export const INITIAL_CENTER = { lat: -26.816683901060273, lng: -65.19854533333803 };
 
+export const INITIAL_ZOOM = 12;
+
 export const MAP_URL = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_API_KEY_GOOGLE}&v=3.exp&libraries=geometry,drawing,places`;
 
 export const MAP_STYLES = [
