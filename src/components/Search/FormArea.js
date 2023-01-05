@@ -4,7 +4,7 @@ import { MapContainer } from "components/commons/MapContainer";
 import { SearchForm } from "./SearchForm";
 import { SectionHeader } from "components/commons/SectionHeader";
 import { sections } from "config/sections";
-import { INITIAL_CENTER } from "config/map";
+import { INITIAL_CENTER, INITIAL_ZOOM } from "config/map";
 
 export function FormArea({ posts }) {
   
@@ -25,7 +25,7 @@ export function FormArea({ posts }) {
       <Box width={["100%", "100%", "80%", "45%"]} pt={4}>
         <MapContainer
           initialCenter={INITIAL_CENTER}
-          zoom={15}
+          zoom={INITIAL_ZOOM}
           isMarkerShown={true}
           posts={posts}
         />
