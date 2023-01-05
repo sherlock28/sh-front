@@ -5,12 +5,13 @@ import {
     Avatar,
     Box,
     Center,
-    Badge,
     Text,
     Stack,
+    SimpleGrid,
     Button,
     useColorModeValue
 } from "@chakra-ui/react";
+import { getRandomTags } from "utils/getRandomTags";
 
 export function Card({ recomm }) {
 
@@ -20,11 +21,14 @@ export function Card({ recomm }) {
         setLocation(`/roommate/${recomm.username}`);
     }
 
+    const tags = getRandomTags(recomm.preferences)
+
     return (
 
         <Center py={6}>
             <Box
-                maxW={'320px'}
+                maxW={'330px'}
+                minW={'310px'}
                 minH={'455px'}
                 w={'full'}
                 bg={useColorModeValue('white', 'gray.900')}
@@ -34,37 +38,42 @@ export function Card({ recomm }) {
                 textAlign={'center'}>
                 <Avatar
                     size={'xl'}
-                    src={recomm.avatar}
+                    src={recomm?.avatar}
                     alt={'Avatar Alt'}
                     mb={4}
                     pos={'relative'}
                 />
                 <Heading fontSize={'2xl'} fontFamily={'body'}>
-                    {recomm.name}
+                    {recomm?.name}
                 </Heading>
                 <Text fontWeight={600} color={'gray.500'} mb={4}>
-                    {recomm.username}
+                    {recomm?.username}
                 </Text>
                 <Text
                     textAlign={'center'}
                     minH={'72px'}
                     color={useColorModeValue('gray.700', 'gray.400')}
                     px={3}>
-                    {recomm.bio}
+                    {recomm?.bio}
                 </Text>
 
-                <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
-                    {recomm.tags.map(tag => {
-                        return (
-                            <Badge
-                                key={tag}
-                                px={2}
-                                py={1}
-                                fontWeight={'400'}>
-                                {`#${tag}`}
-                            </Badge>)
-                    })}
-                </Stack>
+                <SimpleGrid columns={2} spacing={4}>
+                    {
+                        tags.map(tag => {
+                            return (
+                                <Box
+                                    key={tag}
+                                    fontWeight={'400'}
+                                    borderRadius='md'
+                                    color='black'
+                                    background="gray.100"
+                                    boxShadow='md'>
+                                    {`#${tag}`}
+                                </Box>
+                            )
+                        })
+                    }
+                </SimpleGrid>
 
                 <Stack mt={8} direction={'row'} spacing={4}>
                     <Button
