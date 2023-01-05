@@ -1,14 +1,19 @@
 import React from 'react';
 import { Box, Center } from "@chakra-ui/react";
+import { Loading } from "components/commons/Loading";
 import { FindRoommateForm } from "./FindRoommateForm";
 import { FormArea } from "./FormArea";
 import { Results } from "./Results";
 import { SectionHeader } from "components/commons/SectionHeader";
 import { sections } from "config/sections";
-import { initialRecomms } from "./initialRecomms";
+import { useAxios } from "hooks/utils/useAxios";
+
+let idPerson = 1;
+const URL = `${process.env.REACT_APP_API_URL_RECOMM}/recomendation/${idPerson}`;
 
 export function FindRoommate() {
     const { findRoommate } = sections;
+    const { response, error, loading } = useAxios({ url: URL, method: "get" });
 
     return (<>
         <FormArea>
@@ -20,7 +25,7 @@ export function FindRoommate() {
         </FormArea>
         <Box width={"100%"} my={20}>
             <Center>
-                <Results recomms={initialRecomms} />
+                {loading ? <Loading minH={"30vh"} size={"lg"} m={20} /> : <Results recomms={response?.data} />}
             </Center>
         </Box>
     </>
