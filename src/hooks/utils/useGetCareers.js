@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { GET_CAREERS } from 'client/gql/utils';
+import { GET_CAREERS } from 'client/gql/queries/utils';
 
 export function useGetCareers() {
     const { loading, error, data: careers } = useQuery(GET_CAREERS);

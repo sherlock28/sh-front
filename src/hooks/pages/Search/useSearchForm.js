@@ -1,6 +1,6 @@
 import { useLazyQuery } from "@apollo/client";
-import { SEARCH_PUBLICATIONS } from "client/gql/searches/searches";
-import { getVariables } from "client/gql/searches/getVariables";
+import { SEARCH_PUBLICATIONS } from "client/gql/queries/searches/searches";
+import { getVariables } from "client/gql/queries/searches/getVariables";
 
 
 export function useSearchForm() {

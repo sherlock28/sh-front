@@ -29,6 +29,7 @@ export function useRegisterForm() {
     const handleShowPass = () => setShowPass(!showPass);
 
     const onSubmit = data => {
+        console.log(data)
         if (!validCaptcha) {
             setErrorsCaptcha({
                 ...errorsCaptcha,

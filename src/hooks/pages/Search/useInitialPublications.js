@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
-import { GET_INITIAL_PUBLICATIONS } from "client/gql/searches/searches";
-import { getInitialVars } from "client/gql/searches/getInitialVars";
+import { GET_INITIAL_PUBLICATIONS } from "client/gql/queries/searches/searches";
+import { getInitialVars } from "client/gql/queries/searches/getInitialVars";
 
 export function useInitialPublications() {
 
