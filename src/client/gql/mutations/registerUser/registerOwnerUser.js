@@ -38,6 +38,10 @@ mutation RegisterOwnerUser($lastname: String, $firstname: String, $gender: Strin
                         users {
                             id
                             email
+                            user_category {
+                                id
+                                description
+                            }
                         }
                         owners {
                             id

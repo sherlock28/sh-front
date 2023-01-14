@@ -7,6 +7,7 @@ import { REGISTER_STUDENT_USER } from "client/gql/mutations/registerUser/registe
 import { REGISTER_OWNER_USER } from "client/gql/mutations/registerUser/registerOwnerUser";
 import { getVarStudentUser } from "client/gql/mutations/registerUser/getVarStudentUser";
 import { getVarOwnerUser } from "client/gql/mutations/registerUser/getVarOwnerUser";
+import { encryptPassword } from "utils/encryptPassword";
 import { paths } from "config/paths";
 
 export function useRegisterUser() {
@@ -58,13 +59,15 @@ export function useRegisterUser() {
         formState: { errors },
     } = useForm();
 
-    const onSubmitStudentUser = data => {
+    const onSubmitStudentUser = async data => {
         let variables = getVarStudentUser(data);
+        variables.password = await encryptPassword(variables.password);
         registerStudentUser({ variables });
     };
 
-    const onSubmitOwnerUser = data => {
+    const onSubmitOwnerUser = async data => {
         let variables = getVarOwnerUser(data);
+        variables.password = await encryptPassword(variables.password);
         registerOwnerUser({ variables });
     };
 

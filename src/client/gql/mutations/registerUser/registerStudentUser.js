@@ -42,6 +42,10 @@ mutation RegisterStudentUser($lastname: String, $firstname: String, $gender: Str
                 users {
                     id
                     email
+                    user_category {
+                        id
+                        description
+                    }
                 }
                 students {
                     id

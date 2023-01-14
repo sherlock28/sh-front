@@ -8,7 +8,7 @@ export function getVarOwnerUser(data) {
         phone: data.phone,
         email: data.email,
         password: data.password,
-        username: "owner",
+        username: data.email,
         bio: "",
         user_status: true,
         user_categories_id: 3,
