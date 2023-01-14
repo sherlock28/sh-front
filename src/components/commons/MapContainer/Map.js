@@ -16,9 +16,7 @@ function getCoordinates(post) {
 
     position.lat = +post.ownership.coordinate?.lat;
     position.lng = +post.ownership.coordinate?.lon;
-    
-    console.log(position)
-    
+        
     return position;
 }
 
