@@ -37,13 +37,8 @@ export function FindRoommateForm() {
     }
 
     const { states } = useGetStates();
-    const { cities } = useGetCities();
+    const { cities, setStateSelected } = useGetCities();
     const { careers } = useGetCareers();
-
-    const setStateSelected = (id) => {
-        if (id === "") return;
-        console.log(id);
-    }
 
     return (
         <Box textAlign="left">
@@ -67,24 +62,24 @@ export function FindRoommateForm() {
                 </FormControl>
 
                 <Flex direction={["column", "column", "row", "row", "row"]}>
-                    <FormControl m={2} isInvalid={errors.carreer}>
+                    <FormControl m={2} isInvalid={errors.career}>
                         <FormLabel>Carrera</FormLabel>
                         <Select
-                            name="carreer"
+                            name="career"
                             placeholder="Selecciona..."
-                            {...register("carreer")}
+                            {...register("career")}
                             _focus={{ background: "none" }}
                         >
-                            {careers?.map((carreer) => {
+                            {careers?.map((career) => {
                                 return (
-                                    <option key={carreer.id} value={carreer.id}>
-                                        {carreer.name}
+                                    <option key={career.id} value={career.id}>
+                                        {career.name}
                                     </option>
                                 );
                             })}
                         </Select>
                         <FormErrorMessage>
-                            {errors.carreer && errors.carreer.message}
+                            {errors.career && errors.career.message}
                         </FormErrorMessage>
                     </FormControl>
                     <FormControl m={2}>

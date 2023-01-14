@@ -109,7 +109,7 @@ export const validateNumberSumary = {
     required: "La facultad es requerida.",
   };
   
-  export const validateCarreer = {
+  export const validatecareer = {
     required: "La carrera es requerida.",
   };
   

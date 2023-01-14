@@ -23,7 +23,7 @@ import {
   validateEmail,
   validatePhone,
   validatePassword,
-  validateCarreer,
+  validatecareer,
   validateState,
   validateCity,
 } from "utils/validations/SignUp/validations";
@@ -31,32 +31,27 @@ import {
 import { useGetCities } from "hooks/utils/useGetCities";
 import { useGetStates } from "hooks/utils/useGetStates";
 import { useGetCareers } from "hooks/utils/useGetCareers";
-import { useRegisterForm } from "hooks/pages/SignUp/useRegisterForm";
+import { useRegisterUser } from "hooks/pages/SignUp/useRegisterUser";
 import { CustomButton } from "components/commons/CustomButton";
 
 export function RegisterForm() {
+
   const {
-    // onChange,
-    onSubmit,
+    loading,
+    error,
+    user,
+    onSubmitStudentUser,
     register,
     handleSubmit,
-    handleShowPass,
     errors,
-    // errorsCaptcha,
     showPass,
-    isFetching,
-  } = useRegisterForm();
+    handleShowPass
+  } = useRegisterUser();
+
 
   const { states } = useGetStates();
-  const { cities } = useGetCities();
+  const { cities, setStateSelected } = useGetCities();
   const { careers } = useGetCareers();
-
-  // const { cities, setStateSelected } = useGetCities();
-
-  const setStateSelected = (id) => {
-    if (id === "") return;
-    console.log(id)
-  }
 
   return (
     <>
@@ -218,25 +213,25 @@ export function RegisterForm() {
           </Flex>
 
           <Flex direction={["column", "column", "row", "row", "row"]}>
-            <FormControl m={2} isInvalid={errors.carreer}>
+            <FormControl m={2} isInvalid={errors.career}>
               <FormLabel>Selecciona tu Carrera</FormLabel>
               <Select
-                name="carreer"
+                name="career"
                 placeholder="Selecciona..."
-                {...register("carreer", validateCarreer)}
+                {...register("career", validatecareer)}
                 width={["100%", "100%", "49%", "49%", "49%"]}
                 _focus={{ background: "none" }}
               >
-                {careers?.map((carreer) => {
+                {careers?.map((career) => {
                   return (
-                    <option key={carreer.id} value={carreer.id}>
-                      {carreer.name}
+                    <option key={career.id} value={career.id}>
+                      {career.name}
                     </option>
                   );
                 })}
               </Select>
               <FormErrorMessage>
-                {errors.carreer && errors.carreer.message}
+                {errors.career && errors.career.message}
               </FormErrorMessage>
             </FormControl>
           </Flex>
@@ -300,9 +295,9 @@ export function RegisterForm() {
 
           <Center m={8}>
             <CustomButton
-              handleClick={handleSubmit(onSubmit)}
+              handleClick={handleSubmit(onSubmitStudentUser)}
               type="submit"
-              isLoading={isFetching}
+              isLoading={loading}
               loadingText="Registrando"
               width="40%"
               textButton="Registrarse"

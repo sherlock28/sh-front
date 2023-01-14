@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import {
   validateUsername,
-  validateCarreer,
+  validatecareer,
   validateGender,
   validateState,
   validateCity,
@@ -79,12 +79,12 @@ export function ProfileForm() {
                   {errors.username && errors.username.message}
                 </FormErrorMessage>
               </FormControl>
-              <FormControl m={2} isInvalid={errors.carreer}>
+              <FormControl m={2} isInvalid={errors.career}>
                 <FormLabel>Selecciona tu Carrera</FormLabel>
                 <Select
-                  name="carreer"
+                  name="career"
                   placeholder="Selecciona..."
-                  {...register("carreer", validateCarreer)}
+                  {...register("career", validatecareer)}
                   w={["100%", "100%", "100%", "100%", "100%"]}
                   _focus={{ background: "none" }}
                 >
@@ -97,7 +97,7 @@ export function ProfileForm() {
                   })}
                 </Select>
                 <FormErrorMessage>
-                  {errors.carreer && errors.carreer.message}
+                  {errors.career && errors.career.message}
                 </FormErrorMessage>
               </FormControl>
             </Flex>

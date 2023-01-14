@@ -24,39 +24,26 @@ import {
   validatePassword,
 } from "utils/validations/SignUp/validationsOwner";
 import { CustomButton } from "components/commons/CustomButton";
+import { useRegisterUser } from "hooks/pages/SignUp/useRegisterUser";
 // import ReCAPTCHA from "react-google-recaptcha";
 // import { paths } from "config/paths";
 
 export function RegisterFormOwner() {
-  // eslint-disable-next-line
-  // const dispatch = useDispatch();
+
   const {
+    loading_owner,
+    error_owner,
+    userOwner,
+    onSubmitOwnerUser,
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm();
+    errors,
+    showPass,
+    handleShowPass 
+  } = useRegisterUser();
 
-  const [show, setShow] = useState(false);
   // const [errorsCaptcha, setErrorsCaptcha] = useState({ message: "" });
   // const [validCaptcha, setValidCaptcha] = useState(false);
-
-  const handleClick = () => setShow(!show);
-
-  const onSubmit = data => {
-    console.log(data);
-    // if (!validCaptcha) {
-    //   setErrorsCaptcha({
-    //     ...errorsCaptcha,
-    //     message: "Completa el captcha.",
-    //   });
-    //   return;
-    // }
-    // dispatch(signUpAction(data));
-  };
-
-  // function onChange(value) {
-  //   value ? setValidCaptcha(true) : setValidCaptcha(false);
-  // }
 
   return (
     <>
@@ -125,13 +112,13 @@ export function RegisterFormOwner() {
               <InputGroup>
                 <Input
                   id="password"
-                  type={show ? "text" : "password"}
+                  type={showPass ? "text" : "password"}
                   placeholder="Contraseña"
                   {...register("password", validatePassword)}
                 />
                 <InputRightElement width="4.5rem">
-                  <Button h="1.75rem" size="sm" onClick={handleClick}>
-                    {show ? <ViewOffIcon /> : <ViewIcon />}
+                  <Button h="1.75rem" size="sm" onClick={handleShowPass}>
+                    {showPass ? <ViewOffIcon /> : <ViewIcon />}
                   </Button>
                 </InputRightElement>
               </InputGroup>
@@ -144,7 +131,7 @@ export function RegisterFormOwner() {
               <FormLabel>Confirma tu contraseña</FormLabel>
               <Input
                 id="confirmPassword"
-                type={show ? "text" : "password"}
+                type={showPass ? "text" : "password"}
                 placeholder="Confirmación de contraseña"
                 {...register("confirmPassword", validatePassword)}
               />
@@ -168,9 +155,9 @@ export function RegisterFormOwner() {
 
           <Center m={8}>
             <CustomButton
-              handleClick={handleSubmit(onSubmit)}
+              handleClick={handleSubmit(onSubmitOwnerUser)}
               type="submit"
-              isLoading={isSubmitting}
+              isLoading={loading_owner}
               loadingText="Registrando"
               width="40%"
               textButton="Registrarse"
