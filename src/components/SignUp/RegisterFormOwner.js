@@ -12,10 +12,6 @@ import {
   Center,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { useForm } from "react-hook-form";
-// import { useDispatch } from "react-redux";
-// eslint-disable-next-line
-// import { signUpAction } from "reducers/authSlice";
 import {
   validateLastname,
   validateFirstname,
@@ -26,7 +22,6 @@ import {
 import { CustomButton } from "components/commons/CustomButton";
 import { useRegisterUser } from "hooks/pages/SignUp/useRegisterUser";
 // import ReCAPTCHA from "react-google-recaptcha";
-// import { paths } from "config/paths";
 
 export function RegisterFormOwner() {
 
