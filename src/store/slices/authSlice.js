@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { auth } from "services";
+import { auth } from "services";
 
 export const authSlice = createSlice({
     name: "auth",
@@ -20,8 +20,7 @@ export const authSlice = createSlice({
         },
         successSignIn: (state, action) => {
             state.isFetching = false;
-            state.token = action.payload.access_token;
-            state.user = action.payload.user;
+            state.token = action.payload.data;
             state.isLoggedIn = true;
             state.isSuccess = true;
         },
@@ -34,14 +33,10 @@ export const authSlice = createSlice({
             state.isError = false;
             state.errorMessage = "";
         },
-        successSignUp: (state, action) => {
-            state.isFetching = false;
-            state.isSuccess = true;
-        },
         authFailed: (state, action) => {
             state.isFetching = false;
             state.isError = true;
-            state.errorMessage = action.payload.error;
+            state.errorMessage = action.payload.message;
         },
         clearState: (state, action) => {
             state.isSuccess = false;
@@ -55,7 +50,6 @@ export const {
     authLoading,
     authFailed,
     successSignIn,
-    successSignUp,
     successSignOut,
     clearState,
 } = authSlice.actions;
@@ -64,16 +58,16 @@ export const signInAction = data => async dispatch => {
     dispatch(authLoading());
     try {
         const { email, password } = data;
-        // const response = await auth.signInService({ email, password });
-        // const statusCode = response.status;
-        // const res = await response.json();
+        const response = await auth.signInService({ email, password });
+        const statusCode = response.status;
+        const res = await response.json();
 
-        // if (statusCode === 200) {
-        //     dispatch(successSignIn(res));
-        // }
-        // if (statusCode === 401) {
-        //     dispatch(authFailed(res));
-        // }
+        if (statusCode === 200) {
+            dispatch(successSignIn(res));
+        }
+        if (statusCode === 401) {
+            dispatch(authFailed(res));
+        }
     } catch (error) {
         dispatch(authFailed(error.message));
     }

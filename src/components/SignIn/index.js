@@ -33,7 +33,7 @@ export function SignIn() {
     register,
     handleSubmit,
     errors,
-    onSubmit,
+    onSubmitLoggin,
     showPass,
     handleShowPass,
     isFetching
@@ -85,7 +85,7 @@ export function SignIn() {
 
               <Center>
                 <CustomButton
-                  handleClick={handleSubmit(onSubmit)}
+                  handleClick={handleSubmit(onSubmitLoggin)}
                   type="submit"
                   isLoading={isFetching}
                   loadingText="Enviando"

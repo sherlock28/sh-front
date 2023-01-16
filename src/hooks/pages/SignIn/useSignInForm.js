@@ -9,10 +9,6 @@ import { signInAction, authSelector, clearState } from "store/slices/authSlice";
 export function useSignInForm() {
   // eslint-disable-next-line
   const [_, setLocation] = useLocation();
-  const dispatch = useDispatch();
-  const { isFetching, isSuccess, isError } = useSelector(authSelector);
-
-  const toast = useToast();
 
   const {
     register,
@@ -20,12 +16,10 @@ export function useSignInForm() {
     formState: { errors },
   } = useForm();
 
-  const [showPass, setShowPass] = useState(false);
-  const handleShowPass = () => setShowPass(!showPass);
+  /**************************************************************************************/
 
-  const onSubmit = (data) => {
-    dispatch(signInAction(data));
-  };
+  const dispatch = useDispatch();
+  const { isFetching, isSuccess, isError } = useSelector(authSelector);
 
   useEffect(() => {
     return () => {
@@ -33,33 +27,54 @@ export function useSignInForm() {
     };
   }, [dispatch]);
 
-//   useEffect(
-//     () => {
-//       if (isError) {
-//         toast({
-//           title: "Error",
-//           description: "Something went wrong",
-//           status: "error",
-//           duration: 3000,
-//           isClosable: true,
-//         });
-//         dispatch(clearState());
-//       }
+  const onSubmitLoggin = (data) => {
+    dispatch(signInAction(data));
+  };
 
-//       if (isSuccess) {
-//         setLocation(paths.search);
-//       }
-//     }, // eslint-disable-next-line
-//     [isError, isSuccess]
-//   );
+  /**************************************************************************************/
+
+  const [showPass, setShowPass] = useState(false);
+  const handleShowPass = () => setShowPass(!showPass);
+
+  /**************************************************************************************/
+
+  const toast = useToast();
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearState());
+    };
+  }, [dispatch]);
+
+  useEffect(
+    () => {
+      if (isError) {
+        toast({
+          title: "Error",
+          description: "Credenciales inválidas",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+        dispatch(clearState());
+      }
+
+      if (isSuccess) {
+        setLocation(paths.search);
+      }
+    }, // eslint-disable-next-line
+    [isError, isSuccess]
+  );
 
   return {
     register,
     handleSubmit,
     errors,
-    onSubmit,
-    showPass,
-    handleShowPass,
+
     isFetching,
+    onSubmitLoggin,
+
+    showPass,
+    handleShowPass
   };
 }
