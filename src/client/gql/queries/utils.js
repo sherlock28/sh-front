@@ -11,7 +11,7 @@ export const GET_STATES = gql`
 
 export const GET_CITIES = gql`
     query GetCities($state_id: bigint) {
-        sh_cities(where: {state_id: {_eq: $state_id}}) {
+        sh_cities(where: {state_id: {_eq: $state_id}}, order_by: {name: asc}) {
             id
             name
         }
