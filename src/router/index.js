@@ -28,18 +28,16 @@ export function Router() {
       <Route path={paths.search} component={SearchView} exact />
       <Route path={paths.members} component={MembersView} exact />
       <Route path={paths.aboutUs} component={AboutUsView} exact />
-      <Route path="/" component={
-        <ProtectedRoute>
-          <Route path={paths.tags} component={TagsView} exact />
-          <Route path={paths.questions} component={QuestionsView} exact />
-          <Route path={paths.account} component={ProfileView} exact />
-          <Route path={paths.publicationDetail} component={PublicationDetailView} exact />
-          <Route path={paths.houseRegister} component={HouseRegisterView} exact />
-          <Route path={paths.publicationRegister} component={PublicationRegisterView} exact />
-          <Route path={paths.findRoommate} component={FindRoommateView} exact />
-          <Route path={paths.roommateAccount} component={RoommateProfileView} exact />
-        </ProtectedRoute>
-      } />
+      <ProtectedRoute>
+        <Route path={paths.tags} component={TagsView} exact />
+        <Route path={paths.questions} component={QuestionsView} exact />
+        <Route path={paths.account} component={ProfileView} exact />
+        <Route path={paths.publicationDetail} component={PublicationDetailView} exact />
+        <Route path={paths.houseRegister} component={HouseRegisterView} exact />
+        <Route path={paths.publicationRegister} component={PublicationRegisterView} exact />
+        <Route path={paths.findRoommate} component={FindRoommateView} exact />
+        <Route path={paths.roommateAccount} component={RoommateProfileView} exact />
+      </ProtectedRoute>
       <Route>404, Not Found!</Route>
     </Switch>
   )
