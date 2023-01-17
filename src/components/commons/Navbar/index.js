@@ -14,19 +14,24 @@ import {
     HamburgerIcon,
     CloseIcon,
 } from '@chakra-ui/icons';
+import { useSelector } from "react-redux";
 import { DesktopNav } from './DesktopNav';
 import { MobileNav } from './MobileNav';
+import { AccountNav } from './AccountNav';
 import { Logo } from 'components/commons/Logo';
 import { paths } from "config/paths";
 import { useLocation } from "wouter";
+import { authSelector } from "store/slices/authSlice";
 
 export function Navbar() {
     const { isOpen, onToggle } = useDisclosure();
     // eslint-disable-next-line
     const [_, setLocation] = useLocation();
-  
+
+    const { isAuthenticated, user } = useSelector(authSelector);
+
     const goTo = (to) => {
-      setLocation(to);
+        setLocation(to);
     };
 
     return (
@@ -47,7 +52,7 @@ export function Navbar() {
                     display={{ base: 'flex', md: 'none' }}>
                     <IconButton
                         onClick={onToggle}
-                        icon={ isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} /> }
+                        icon={isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />}
                         variant={'ghost'}
                         aria-label={'Toggle Navigation'}
                     />
@@ -57,7 +62,7 @@ export function Navbar() {
                         textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
                         fontFamily={'heading'}
                         color={useColorModeValue('gray.800', 'white')}>
-                        <Logo boxSize="90px"/>
+                        <Logo boxSize="90px" />
                     </Text>
 
                     <Flex display={{ base: 'none', md: 'flex' }} alignItems="center" ml={10}>
@@ -65,35 +70,41 @@ export function Navbar() {
                     </Flex>
                 </Flex>
 
-                <Stack
-                    flex={{ base: 1, md: 0 }}
-                    justify={'flex-end'}
-                    direction={'row'}
-                    spacing={6}>
-                    <Button
-                        as={'a'}
-                        fontSize={'sm'}
-                        fontWeight={400}
-                        variant={'link'}
-                        _hover={{ cursor: 'pointer' }}
-                        _focus={{ outline: "none", border: "none " }}
-                        onClick={() => goTo(paths.login)}
+                {isAuthenticated ?
+                    <AccountNav username={user.username}/>
+
+                    :
+
+                    <Stack
+                        flex={{ base: 1, md: 0 }}
+                        justify={'flex-end'}
+                        direction={'row'}
+                        spacing={6}>
+                        <Button
+                            as={'a'}
+                            fontSize={'sm'}
+                            fontWeight={400}
+                            variant={'link'}
+                            _hover={{ cursor: 'pointer' }}
+                            _focus={{ outline: "none", border: "none " }}
+                            onClick={() => goTo(paths.login)}
                         >
-                        Iniciar sesión
-                    </Button>
-                    <Button
-                        display={{ base: 'none', md: 'inline-flex' }}
-                        fontSize={'sm'}
-                        fontWeight={600}
-                        color={'white'}
-                        bg="black"
-                        _focus={{ outline: "none", border: "none " }}
-                        _hover={{ background: "#36393f" }}
-                        onClick={()=> goTo(paths.register)}
-                        > 
-                        Registrarse
-                    </Button>
-                </Stack>
+                            Iniciar sesión
+                        </Button>
+                        <Button
+                            display={{ base: 'none', md: 'inline-flex' }}
+                            fontSize={'sm'}
+                            fontWeight={600}
+                            color={'white'}
+                            bg="black"
+                            _focus={{ outline: "none", border: "none " }}
+                            _hover={{ background: "#36393f" }}
+                            onClick={() => goTo(paths.register)}
+                        >
+                            Registrarse
+                        </Button>
+                    </Stack>
+                }
             </Flex>
 
             <Collapse in={isOpen} animateOpacity>
