@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import jwt_decode from "jwt-decode";
 import { auth } from "services";
 
 export const authSlice = createSlice({
@@ -21,6 +22,7 @@ export const authSlice = createSlice({
         successSignIn: (state, action) => {
             state.isFetching = false;
             state.token = action.payload.data;
+            state.user = action.payload.user;
             state.isAuthenticated = true;
             state.isSuccess = true;
         },
@@ -61,6 +63,7 @@ export const signInAction = data => async dispatch => {
         const response = await auth.signInService({ email, password });
         const statusCode = response.status;
         const res = await response.json();
+        res.user = jwt_decode(res.data);
 
         if (statusCode === 200) {
             dispatch(successSignIn(res));
@@ -75,10 +78,7 @@ export const signInAction = data => async dispatch => {
 
 export const signOutAction = data => async dispatch => {
     dispatch(authLoading());
-};
-
-export const signUpAction = data => async dispatch => {
-    dispatch(authLoading());
+    dispatch(successSignOut()); 
 };
 
 export default authSlice.reducer;
