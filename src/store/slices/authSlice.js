@@ -4,7 +4,7 @@ import { auth } from "services";
 export const authSlice = createSlice({
     name: "auth",
     initialState: {
-        isLoggedIn: false,
+        isAuthenticated: false,
         user: null,
         token: null,
         isFetching: false,
@@ -21,14 +21,14 @@ export const authSlice = createSlice({
         successSignIn: (state, action) => {
             state.isFetching = false;
             state.token = action.payload.data;
-            state.isLoggedIn = true;
+            state.isAuthenticated = true;
             state.isSuccess = true;
         },
         successSignOut: (state, action) => {
             state.isFetching = false;
             state.user = null;
             state.token = null;
-            state.isLoggedIn = false;
+            state.isAuthenticated = false;
             state.isSuccess = false;
             state.isError = false;
             state.errorMessage = "";
