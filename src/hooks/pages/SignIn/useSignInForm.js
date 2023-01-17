@@ -9,6 +9,7 @@ import { signInAction, authSelector, clearState } from "store/slices/authSlice";
 export function useSignInForm() {
   // eslint-disable-next-line
   const [_, setLocation] = useLocation();
+  const toast = useToast();
 
   const {
     register,
@@ -19,7 +20,7 @@ export function useSignInForm() {
   /**************************************************************************************/
 
   const dispatch = useDispatch();
-  const { isFetching, isSuccess, isError } = useSelector(authSelector);
+  const { isFetching, isSuccess, isError, isAuthenticated } = useSelector(authSelector);
 
   useEffect(() => {
     return () => {
@@ -38,13 +39,12 @@ export function useSignInForm() {
 
   /**************************************************************************************/
 
-  const toast = useToast();
 
   useEffect(() => {
-    return () => {
-      dispatch(clearState());
-    };
-  }, [dispatch]);
+    if (isAuthenticated) {
+      setLocation(paths.search);
+    }
+  }, [isAuthenticated]);
 
   useEffect(
     () => {

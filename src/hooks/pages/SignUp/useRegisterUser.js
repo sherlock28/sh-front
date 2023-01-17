@@ -9,11 +9,14 @@ import { getVarStudentUser } from "client/gql/mutations/registerUser/getVarStude
 import { getVarOwnerUser } from "client/gql/mutations/registerUser/getVarOwnerUser";
 import { encryptPassword } from "utils/encryptPassword";
 import { paths } from "config/paths";
+import { useSelector } from "react-redux";
+import { authSelector } from "store/slices/authSlice";
 
 export function useRegisterUser() {
     
     // eslint-disable-next-line
     const [_, setLocation] = useLocation();
+    const toast = useToast();
 
     /**************************************************************************************/
     const [registerStudentUser, { loading, error, data: newStudentUser }] = useMutation(REGISTER_STUDENT_USER);
@@ -21,7 +24,13 @@ export function useRegisterUser() {
 
     /**************************************************************************************/
 
-    const toast = useToast();
+    const { isAuthenticated } = useSelector(authSelector);
+
+    useEffect(() => {
+        if (isAuthenticated) {
+          setLocation(paths.search);
+        }
+      }, [isAuthenticated]);
 
     useEffect(
         () => {
