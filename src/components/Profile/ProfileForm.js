@@ -29,7 +29,7 @@ import { CustomButton } from "components/commons/CustomButton";
 export function ProfileForm() {
 
   const { careers } = useGetCareers();
-  const { cities } = useGetCities();
+  const { cities, setStateSelected } = useGetCities();
   const { states } = useGetStates();
 
   const { register, handleSubmit, onSubmit, onCancel, errors, isSubmitting } = useProfileForm();
@@ -147,7 +147,7 @@ export function ProfileForm() {
                   placeholder="Selecciona..."
                   {...register("state", validateState)}
                   _focus={{ background: "none" }}
-                // onChange={(e) => setStateSelected(e.target.value)}
+                  onChange={(e) => setStateSelected(e.target.value)}
                 >
                   {states?.map((state) => {
                     return (

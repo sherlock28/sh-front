@@ -11,7 +11,7 @@ export function AccountNav({ username }) {
     const dispatch = useDispatch();
 
     const goToMyAccount = () => {
-        setLocation(paths.account);
+        setLocation(`/cuenta/${username}`);
     };
 
     const handleSubmit = () => {
