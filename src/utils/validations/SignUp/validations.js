@@ -21,6 +21,13 @@ export const validateNumberSumary = {
       message: "El nombre de usuario no puede exceder los 20 caracteres.",
     },
   };
+
+  export const validateBio = {
+    maxLength: {
+      value: 280,
+      message: "La presentación no puede exceder los 280 caracteres.",
+    },
+  };
   
   export const validateLastname = {
     required: "El apellido es requerido.",

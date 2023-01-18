@@ -3,24 +3,24 @@ import {
   FormControl,
   FormLabel,
   FormErrorMessage,
-  Input,
+  Textarea,
   Select,
   Avatar,
   Box,
   Flex,
   Text,
   Heading,
-  Center,
   Button,
 } from "@chakra-ui/react";
 import {
-  validateUsername,
+  validateBio,
   validatecareer,
   validateGender,
   validateState,
   validateCity,
 } from "utils/validations/SignUp/validations";
 import { useProfileForm } from "hooks/pages/Profile/useProfileForm";
+import { useGetUser } from "hooks/pages/Profile/useGetUser";
 import { useGetCareers } from "hooks/utils/useGetCareers";
 import { useGetStates } from "hooks/utils/useGetStates";
 import { useGetCities } from "hooks/utils/useGetCities";
@@ -28,6 +28,7 @@ import { CustomButton } from "components/commons/CustomButton";
 
 export function ProfileForm() {
 
+  const { user } = useGetUser();
   const { careers } = useGetCareers();
   const { cities, setStateSelected } = useGetCities();
   const { states } = useGetStates();
@@ -44,16 +45,16 @@ export function ProfileForm() {
           <Box w="100%" mt="8">
             <Avatar
               size="xl"
-              name="Christian Nwamba"
-              src="https://bit.ly/code-beast"
+              name={`${user?.person.lastname}, ${user?.person.firstname}`}
+              src={user?.avatar}
             />
             <Flex
               direction={["column", "column", "column", "column", "column"]}
             >
-              <Text fontSize="2xl">Nombre y Apellido</Text>
-              <Text fontSize="lg">legajo: 12345</Text>
-              <Text fontSize="lg">@username</Text>
-              <Text fontSize="lg">admin@admin.com</Text>
+              <Text fontSize="2xl">{`${user?.person.lastname}, ${user?.person.firstname}`}</Text>
+              <Text fontSize="lg">{`Legajo: ${user?.person.students.at(0).file_number}`}</Text>
+              <Text fontSize="lg">{`@${user?.username}`}</Text>
+              <Text fontSize="lg">{user?.email}</Text>
             </Flex>
           </Box>
         </Flex>
@@ -67,18 +68,20 @@ export function ProfileForm() {
             </Flex>
 
             <Flex direction={["column", "column", "row", "row", "row"]}>
-              <FormControl m={2} isInvalid={errors.username}>
-                <FormLabel>Ingresá tu nombre de usuario</FormLabel>
-                <Input
-                  id="username"
-                  type="text"
-                  placeholder="Nombre de usuario"
-                  {...register("username", validateUsername)}
-                />
-                <FormErrorMessage>
-                  {errors.username && errors.username.message}
-                </FormErrorMessage>
+
+              <FormControl m={2}>
+                <FormLabel>Compartir</FormLabel>
+                <Select
+                  name="share"
+                  {...register("share")}
+                  w={["100%", "100%", "100%", "100%", "100%"]}
+                  _focus={{ background: "none" }}
+                >
+                  <option value="No">No</option>
+                  <option value="Si" selected={user?.person.students.at(0).shared}>Si</option>
+                </Select>
               </FormControl>
+
               <FormControl m={2} isInvalid={errors.career}>
                 <FormLabel>Selecciona tu Carrera</FormLabel>
                 <Select
@@ -90,7 +93,7 @@ export function ProfileForm() {
                 >
                   {careers?.map((career) => {
                     return (
-                      <option key={career.id} value={career.id}>
+                      <option key={career.id} value={career.id} selected={user?.person.students.at(0).career.id === career.id}>
                         {career.name}
                       </option>
                     );
@@ -100,24 +103,7 @@ export function ProfileForm() {
                   {errors.career && errors.career.message}
                 </FormErrorMessage>
               </FormControl>
-            </Flex>
 
-            <Flex
-              direction={["column", "column", "row", "row", "row"]}
-              w="900px"
-            >
-              <FormControl m={2}>
-                <FormLabel>Compartir</FormLabel>
-                <Select
-                  name="share"
-                  {...register("share")}
-                  w={["100%", "100%", "49%", "49%", "49%"]}
-                  _focus={{ background: "none" }}
-                >
-                  <option value="No">No</option>
-                  <option value="Si">Si</option>
-                </Select>
-              </FormControl>
             </Flex>
 
             <Flex direction={["column", "column", "row", "row", "row"]} w="50%">
@@ -129,9 +115,9 @@ export function ProfileForm() {
                   {...register("gender", validateGender)}
                   _focus={{ background: "none" }}
                 >
-                  <option value="Male">Masculino</option>
-                  <option value="Female">Femenino</option>
-                  <option value="Other">Otro</option>
+                  <option value="Male" selected={user?.person.gender === 'male'}>Masculino</option>
+                  <option value="Female" selected={user?.person.gender === 'female'}>Femenino</option>
+                  <option value="Other" selected={user?.person.gender === 'other'}>Otro</option>
                 </Select>
                 <FormErrorMessage>
                   {errors.gender && errors.gender.message}
@@ -183,6 +169,25 @@ export function ProfileForm() {
                 </FormErrorMessage>
               </FormControl>
             </Flex>
+
+            <Flex
+              direction={["column", "column", "row", "row", "row"]}
+              w="900px"
+            >
+              <FormControl m={2} isInvalid={errors.bio}>
+                <FormLabel>Presentación</FormLabel>
+                <Textarea 
+                  id="bio"
+                  placeholder="Escribe tu presentación aquí..."
+                  resize="none"
+                  {...register("bio", validateBio)} 
+                />
+                <FormErrorMessage>
+                  {errors.bio && errors.bio.message}
+                </FormErrorMessage>
+              </FormControl>
+            </Flex>
+
           </Box>
         </form>
       </Flex>
