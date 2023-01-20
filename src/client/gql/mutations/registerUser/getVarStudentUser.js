@@ -6,6 +6,7 @@ export function getVarStudentUser(data) {
         gender: data.gender,
         birth_date: data.dateOfBirth,
         phone: data.phone,
+        cities_id: data.city,
         file_number: data.numberSumary,
         careers_id: data.career,
         shared: false,
