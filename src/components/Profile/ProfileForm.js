@@ -137,7 +137,7 @@ export function ProfileForm() {
                 >
                   {states?.map((state) => {
                     return (
-                      <option value={state.id} key={state.id}>
+                      <option value={state.id} key={state.id} selected={user?.person.students.at(0).city.state_id === state.id}>
                         {state.name}
                       </option>
                     );
@@ -158,7 +158,7 @@ export function ProfileForm() {
                 >
                   {cities?.map((city) => {
                     return (
-                      <option value={city.id} key={city.id}>
+                      <option value={city.id} key={city.id} selected={user?.person.students.at(0).city.id === city.id}>
                         {city.name}
                       </option>
                     );
@@ -176,11 +176,11 @@ export function ProfileForm() {
             >
               <FormControl m={2} isInvalid={errors.bio}>
                 <FormLabel>Presentación</FormLabel>
-                <Textarea 
+                <Textarea
                   id="bio"
                   placeholder="Escribe tu presentación aquí..."
                   resize="none"
-                  {...register("bio", validateBio)} 
+                  {...register("bio", validateBio)}
                 />
                 <FormErrorMessage>
                   {errors.bio && errors.bio.message}

@@ -20,6 +20,7 @@ export const GET_STUDENT_USER_BY_ID = gql`
             city {
               id
               name
+              state_id
             }
             shared
             file_number
