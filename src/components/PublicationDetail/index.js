@@ -7,13 +7,13 @@ import { useGetPublicationById } from "hooks/pages/PublicationDetail/useGetPubli
 import { useRoute } from "wouter";
 import { Slider } from "./Slider";
 import { paths } from "config/paths";
-
-// import { GoogleMapsContainer } from "components/GoogleMaps";
+import { INITIAL_CENTER, INITIAL_ZOOM } from "config/map";
+import { MapContainer } from "./MapContainer";
 
 export function PublicationDetail() {
 
   // eslint-disable-next-line
-  const [match, params] = useRoute(paths.publicationDetail);
+  const [_, params] = useRoute(paths.publicationDetail);
 
   const { loading, error, publication } = useGetPublicationById({ id: params.id });
 
@@ -26,7 +26,7 @@ export function PublicationDetail() {
 
       <Flex color="#000" mt={16}>
         <Flex w="300px" flexDir="column">
-          <Heading size="lg">Detalle</Heading>
+          <Heading size="md">Detalle</Heading>
           <Text mt={4}>{publication.address}</Text>
           <Text mt={2} color="blackAlpha.700">
             - Tipo: {publication.ownership.ownerships_type?.description}
@@ -59,23 +59,19 @@ export function PublicationDetail() {
           </Box>
         </Flex>
 
-        <Flex flexDir="column">
+        <Flex width={"full"} flexDir="column">
           <Box flex="1">
-            <Heading size="lg">{publication.title}</Heading>
+            <Heading size="md">{publication.title}</Heading>
             <Text mt={4} color={"#444"} textAlign="justify">
               {publication.description}
             </Text>
           </Box>
-          <Center my={8}>
-            <Box height={"400px"} width={"600px"}>
-              {/* <GoogleMapsContainer
-                initialCenter={publication.coordinates}
-                zoom={15}
-                isMarkerShown={true}
-                coordinates={publication.coordinates}
-              /> */}
-            </Box>
-          </Center>
+          <MapContainer
+            initialCenter={INITIAL_CENTER}
+            zoom={INITIAL_ZOOM}
+            isMarkerShown={true}
+            publication={publication}
+          />
         </Flex>
       </Flex>
     </Container>
