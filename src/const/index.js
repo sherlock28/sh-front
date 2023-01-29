@@ -1,1 +1,3 @@
 export const ANY_OWNERSHIPS_TYPE = -1;
+export const DEPARTMENT_OWNERSHIPS_TYPE = 1;
+export const HOUSE_OWNERSHIPS_TYPE = 2;
