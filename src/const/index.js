@@ -1,0 +1,1 @@
+export const ANY_OWNERSHIPS_TYPE = -1;
