@@ -5,10 +5,12 @@ import { persistReducer } from "redux-persist";
 import thunk from "redux-thunk";
 import userSlice from "./slices/userSlice";
 import authSlice from "./slices/authSlice";
+import publicationsSlice from "./slices/publicationsSlice";
 
 const reducers = combineReducers({
     user: userSlice,
-    auth: authSlice
+    auth: authSlice,
+    publications: publicationsSlice
 });
 
 const persistConfig = {

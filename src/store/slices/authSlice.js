@@ -76,9 +76,9 @@ export const signInAction = data => async dispatch => {
     }
 };
 
-export const signOutAction = data => async dispatch => {
+export const signOutAction = () => async dispatch => {
     dispatch(authLoading());
-    dispatch(successSignOut()); 
+    dispatch(successSignOut());
 };
 
 export default authSlice.reducer;
