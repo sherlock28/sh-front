@@ -1,18 +1,22 @@
-import { useLazyQuery } from "@apollo/client";
-import { SEARCH_PUBLICATIONS } from "client/gql/queries/searches/searches";
-import { getVariables } from "client/gql/queries/searches/getVariables";
-
+import { getFiltersVariables } from "client/gql/queries/searches/getFiltersVariables";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPublicationsUsingFilters, publicationSelector } from "store/slices/publicationsSlice";
 
 export function useSearchForm() {
 
-  let variables = getVariables();
-  
-  const [searchPublication, { loading, error, data: publications }] = useLazyQuery(SEARCH_PUBLICATIONS, { variables });
+  const dispatch = useDispatch();
+  const { isFetching, isSuccess, isError } = useSelector(publicationSelector);
+
+  const onSubmitSearchPublications = async data => {
+    data.limit = 6;
+    data.offset = 0;
+    dispatch(fetchPublicationsUsingFilters(getFiltersVariables(data)));
+  };
 
   return {
-    searchPublication,
-    loading,
-    error,
-    publications: publications?.sh_publications
+    onSubmitSearchPublications,
+    isFetching, 
+    isSuccess, 
+    isError
   };
 }

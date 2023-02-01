@@ -19,39 +19,40 @@ import {
   RangeSliderThumb,
   Tooltip
 } from "@chakra-ui/react";
-// import { useDispatch } from "react-redux";
-// import { fetchPublicationsByFilters } from "reducers/publicationSlice";
 import { CustomButton } from "components/commons/CustomButton";
+import { useSearchForm } from "hooks/pages/Search/useSearchForm";
+import { ANY_OWNERSHIPS_TYPE } from "const";
 
 export function SearchForm() {
-  //   const dispatch = useDispatch();
 
-  const [typeHouse, setTypeHouse] = useState("Departamento");
-  const [isFurnished, setIsFurnished] = useState(true);
-  const [bedrooms, setBedrooms] = useState(1);
+  const { onSubmitSearchPublications } = useSearchForm();
+
+  const [ownershipsType, setOwnershipsType] = useState(ANY_OWNERSHIPS_TYPE);
+  const [isFurnished, setIsFurnished] = useState(false);
+  const [bedrooms, setBedrooms] = useState(2);
   const [bathrooms, setBathrooms] = useState(1);
   const [size, setSize] = useState(40);
 
-  const [priceRange, setPriceRange] = useState([18000, 40000]);
+  const [priceRange, setPriceRange] = useState([0, 100000]);
   const [showStartTooltip, setShowStartTooltip] = useState(false);
   const [showEndTooltip, setShowEndTooltip] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === "typeHouse") setTypeHouse(value);
+    if (name === "ownershipsType") setOwnershipsType(value);
   };
 
   const handleSearch = (e) => {
     e.preventDefault();
     const filters = {
-      typeHouse,
+      ownershipsType,
       isFurnished,
       bedrooms,
       bathrooms,
       size,
+      priceRange
     };
-    console.log(filters);
-    // dispatch(fetchPublicationsByFilters(filters));
+    onSubmitSearchPublications(filters);
   };
 
   return (
@@ -60,7 +61,7 @@ export function SearchForm() {
         <FormLabel>Tipo de inmueble</FormLabel>
         <Select
           onChange={handleChange}
-          name="typeHouse"
+          name="ownershipsType"
           placeholder="Selecciona el tipo de inmueble"
           _focus={{ background: "none" }}
         >
@@ -72,7 +73,7 @@ export function SearchForm() {
       <Flex w="100%" justifyContent="center" flexDir="column">
         <FormControl mt={8}>
           <FormLabel>Amoblado</FormLabel>
-          <RadioGroup defaultValue="1">
+          <RadioGroup defaultValue="2">
             <Stack spacing={4} direction="row">
               <Radio value="1" onChange={() => setIsFurnished(true)}>
                 Si
@@ -149,9 +150,9 @@ export function SearchForm() {
         <RangeSlider
           aria-label={['min', 'max']}
           colorScheme='blackAlpha'
-          min={10000}
+          min={0}
           max={100000}
-          defaultValue={[18000, 40000]}
+          defaultValue={[30000, 80000]}
           onChangeEnd={(range) => setPriceRange(range)}
         >
           <RangeSliderTrack>
