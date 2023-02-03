@@ -52,12 +52,46 @@ query SearchForDetails($id: Int) {
 }
 `;
 
+
+export function buildQueryInitialPublications(filters) {
+  const page_opt = `
+    limit: ${filters.limit}, 
+    offset: ${filters.offset}
+  `;
+
+  const query = `
+      query GetInitialPublications {
+          sh_publications(${page_opt}, order_by: { id: desc }) {
+              id
+              title
+              price
+              ownership {
+                  id
+                  rooms
+                  bathrooms
+                  rating
+                  ownerships_images {
+                    imageurl
+                  }
+                  coordinate {
+                    lat
+                    lon
+                  }
+              }
+          }
+        }  
+      `;
+
+  return query;
+}
+
+
 export function buildSearchQueryUsingFilters(filters) {
 
   const page_opt = `
     limit: ${filters.limit}, 
     offset: ${filters.offset}
-  `;  
+  `;
 
   const ownershipsType = filters.ownerships_type === "Departamento" ? DEPARTMENT_OWNERSHIPS_TYPE : HOUSE_OWNERSHIPS_TYPE;
 
@@ -72,36 +106,34 @@ export function buildSearchQueryUsingFilters(filters) {
     { ownership: { size: { _lte: ${filters.size} } } }
   `;
 
-  console.log(where_and)
-
   const query = `
-  query SearchUsingFilters {
-    sh_publications(
-      ${page_opt},
-      where: { 
-        _and: [ ${where_and} ]
-      }
-    ) 
-      {
-        id
-        title
-        price
-        ownership {
-          id
-          rooms
-          bathrooms
-          rating
-          ownerships_images {
-              imageurl
+      query SearchUsingFilters {
+        sh_publications(
+          ${page_opt},
+          where: { 
+            _and: [ ${where_and} ]
+          }
+        ) 
+          {
+            id
+            title
+            price
+            ownership {
+              id
+              rooms
+              bathrooms
+              rating
+              ownerships_images {
+                  imageurl
+                }
+              coordinate {
+                  lat
+                  lon
+              }
             }
-          coordinate {
-              lat
-              lon
           }
         }
-      }
-    }
-  `;
+      `;
 
   return query;
 }
