@@ -1,14 +1,21 @@
-import { useQuery } from "@apollo/client";
-import { GET_INITIAL_PUBLICATIONS } from "client/gql/queries/searches/searches";
+import { useEffect } from "react";
 import { getInitialVars } from "client/gql/queries/searches/getInitialVars";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchInitialPublications, publicationSelector } from "store/slices/publicationsSlice";
 
 export function useInitialPublications() {
 
-  const { loading, error, data: initialPublications } = useQuery(GET_INITIAL_PUBLICATIONS, { variables: getInitialVars() });
+  const dispatch = useDispatch();
+  const { isFetching, isSuccess, isError, publications } = useSelector(publicationSelector);
+
+  useEffect(() => {
+    dispatch(fetchInitialPublications(getInitialVars()));
+  }, []);
 
   return {
-    loading,
-    error,
-    initialPublications: initialPublications?.sh_publications
+    isFetching,
+    isSuccess,
+    isError,
+    publications
   };
 }

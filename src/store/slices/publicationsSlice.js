@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { buildSearchQueryUsingFilters } from "client/gql/queries/searches/searches";
+import { buildQueryInitialPublications, buildSearchQueryUsingFilters } from "client/gql/queries/searches/searches";
 import { publications } from "services";
 
 const initialState = {
@@ -49,26 +49,23 @@ export const {
   clearState,
 } = publicationSlice.actions;
 
-export const fetchAllPublications = data => async (dispatch) => {
+export const fetchInitialPublications = data => async (dispatch) => {
   dispatch(publicationLoading());
-  console.log(data);
-  // try {
-  //   const allPublications = await publications.getAllPublications();
-  //   dispatch(publicationsReceived(allPublications));
-  // } catch (err) {
-  //   dispatch(fetchFailed(err.toString()));
-  // }
-  dispatch(successPublication());
+ 
+  const query = buildQueryInitialPublications(data);
+  const pubsArr = await publications.getPublicationsService(query);
+  console.log(pubsArr)
+
+  dispatch(successPublication(pubsArr));
 };
 
 export const fetchPublicationsUsingFilters = data => async (dispatch) => {
   dispatch(publicationLoading());
 
   const query = buildSearchQueryUsingFilters(data);
-  const pub = await publications.getPublicationsUsingFiltersService(query);
-  console.log(pub);
+  const pubsArr = await publications.getPublicationsService(query);
 
-  dispatch(successPublication());
+  dispatch(successPublication(pubsArr));
 };
 
 export default publicationSlice.reducer;

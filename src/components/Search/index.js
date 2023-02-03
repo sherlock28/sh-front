@@ -6,17 +6,17 @@ import { useInitialPublications } from "hooks/pages/Search/useInitialPublication
 import { Loading } from "components/commons/Loading";
 
 export function Search() {
-    const { loading, error, initialPublications } = useInitialPublications();
+    const { publications, isError, isFetching } = useInitialPublications();
 
-    if (loading) return <Loading minH={"60vh"} size={"lg"} m={50}/>;
-    if (error) return <div>Error!</div>;
+    if (isFetching) return <Loading minH={"60vh"} size={"lg"} m={50} />;
+    if (isError) return <div>Error!</div>;
 
     return (
         <>
-            <FormArea posts={initialPublications} />
+            <FormArea posts={publications} />
             <Box width={"100%"} my={20}>
                 <Center>
-                    <Results posts={initialPublications} />
+                    <Results posts={publications} />
                 </Center>
             </Box>
         </>
