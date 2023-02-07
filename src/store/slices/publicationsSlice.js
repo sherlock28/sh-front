@@ -54,7 +54,6 @@ export const fetchInitialPublications = data => async (dispatch) => {
  
   const query = buildQueryInitialPublications(data);
   const pubsArr = await publications.getPublicationsService(query);
-  console.log(pubsArr)
 
   dispatch(successPublication(pubsArr));
 };
