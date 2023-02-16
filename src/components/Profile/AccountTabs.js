@@ -1,17 +1,22 @@
 import React from "react";
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
 import { SectionHeader } from "components/commons/SectionHeader";
 import { ProfileForm } from "./ProfileForm";
 import { PublicationsList } from "./PublicationsList";
 import { Tags } from "components/Tags";
 import { Questions } from 'components/Questions';
 import { sections } from "config/sections";
+import { authSelector } from "store/slices/authSlice";
 
 const PAGE = "profile";
 
 export function AccountTabs() {
   
   const { profile, tags, questions } = sections;
+
+  const { user_category } = useSelector(authSelector);
+  console.log({user_category})
 
   return (
     <>
@@ -30,6 +35,7 @@ export function AccountTabs() {
             />
             <ProfileForm />
           </TabPanel>
+
           <TabPanel>
             <SectionHeader
               section={profile.section}
@@ -37,6 +43,7 @@ export function AccountTabs() {
             />
             <PublicationsList />
           </TabPanel>
+
           <TabPanel>
             <SectionHeader
               section={tags.section}

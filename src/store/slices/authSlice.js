@@ -7,6 +7,7 @@ export const authSlice = createSlice({
     initialState: {
         isAuthenticated: false,
         user: null,
+        user_category: "",
         token: null,
         isFetching: false,
         isSuccess: false,
@@ -23,6 +24,7 @@ export const authSlice = createSlice({
             state.isFetching = false;
             state.token = action.payload.data;
             state.user = action.payload.user;
+            state.user_category = action.payload.user["user-category-id"];
             state.isAuthenticated = true;
             state.isSuccess = true;
         },
