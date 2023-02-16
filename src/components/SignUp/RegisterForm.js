@@ -154,7 +154,6 @@ export function RegisterForm() {
                 id="email"
                 type="email"
                 placeholder="Email"
-                w="49%"
                 {...register("email", validateEmail)}
               />
               <FormErrorMessage>
