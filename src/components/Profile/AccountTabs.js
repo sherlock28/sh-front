@@ -62,7 +62,7 @@ export function AccountTabs() {
                 />
                 <PublicationsList />
               </TabPanel>
-              : <></>
+              : null
           }
           {
             user_category === USER_CATEGORIES.STUDENT ?
