@@ -16,6 +16,8 @@ import {
 import { CustomButton } from "components/commons/CustomButton";
 import { SectionHeader } from "components/commons/SectionHeader";
 import { sections } from "config/sections";
+import { useLocation } from "wouter";
+import { paths } from "config/paths";
 
 const { questions } = sections;
 
@@ -26,7 +28,9 @@ const labelStyles = {
 }
 
 export function Questions({ fromPage }) {
-    
+
+    const [_, setLocation] = useLocation();
+
     const [tidyLevel, setTidyLevel] = useState(3);
     const [visitsLevel, setVisitsLevel] = useState(3);
     const [walkLevel, setWalkLevel] = useState(3);
@@ -37,7 +41,10 @@ export function Questions({ fromPage }) {
     const SIGUIENTE = "Siguiente";
     const GUARDAR = "Guardar";
 
+    const handleSubmit = () => console.log("for update question values");
+
     const textButton = fromPage !== "profile" ? SIGUIENTE : GUARDAR;
+    const customHandleSubmit = fromPage !== "profile" ? () => setLocation(paths.tags) : handleSubmit;
 
     return (
         <Flex align={'center'} justify={'center'}>
@@ -231,7 +238,7 @@ export function Questions({ fromPage }) {
                             {
                                 fromPage !== 'profile' ?
                                     <CustomButton
-                                        handleClick={() => { }}
+                                        handleClick={() => { setLocation(paths.login) }}
                                         background="blackAlpha.100"
                                         color="black"
                                         hoverBg="blackAlpha.300"
@@ -244,7 +251,7 @@ export function Questions({ fromPage }) {
                                     /> : ""
                             }
                             <CustomButton
-                                handleClick={() => { }}
+                                handleClick={customHandleSubmit}
                                 type="submit"
                                 isLoading={false}
                                 loadingText="Enviando"
