@@ -38,6 +38,7 @@ mutation RegisterStudentUser($lastname: String, $firstname: String, $gender: Str
             ]
         ) {
             returning {
+                id
                 firstname
                 lastname
                 users {

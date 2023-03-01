@@ -54,7 +54,8 @@ export function useRegisterUser() {
                     isClosable: true,
                 });
 
-                setLocation(paths.login);
+                window.localStorage.setItem("isPerson", newStudentUser.insert_sh_persons.returning.at(0).id);
+                setLocation(paths.questions);
             }
         }, // eslint-disable-next-line
         [error, error_owner, newStudentUser, newOwnerUser]
