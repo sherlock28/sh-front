@@ -26,3 +26,12 @@ export const GET_CAREERS = gql`
         }
     }  
 `;
+
+export const GET_TAGS = gql`
+    query GetTags {
+        sh_tags {
+            id
+            description
+        }
+    }  
+`;
