@@ -28,9 +28,9 @@ export function Router() {
       <Route path={paths.search} component={SearchView} exact />
       <Route path={paths.members} component={MembersView} exact />
       <Route path={paths.aboutUs} component={AboutUsView} exact />
+      <Route path={paths.tags} component={TagsView} exact />
+      <Route path={paths.questions} component={QuestionsView} exact />
       <ProtectedRoute>
-        <Route path={paths.tags} component={TagsView} exact />
-        <Route path={paths.questions} component={QuestionsView} exact />
         <Route path={paths.account} component={ProfileView} exact />
         <Route path={paths.publicationDetail} component={PublicationDetailView} exact />
         <Route path={paths.houseRegister} component={HouseRegisterView} exact />

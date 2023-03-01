@@ -43,8 +43,14 @@ export function Questions({ fromPage }) {
 
     const handleSubmit = () => console.log("for update question values");
 
+    const setValuesAndRedirect = () => {
+        const questionsArr = [tidyLevel, visitsLevel, walkLevel, studyLevel, smokerLevel, petsLevel];
+        window.localStorage.setItem("questionsValue", JSON.stringify(questionsArr));
+        setLocation(paths.tags);
+    }
+
     const textButton = fromPage !== "profile" ? SIGUIENTE : GUARDAR;
-    const customHandleSubmit = fromPage !== "profile" ? () => setLocation(paths.tags) : handleSubmit;
+    const customHandleSubmit = fromPage !== "profile" ? setValuesAndRedirect : handleSubmit;
 
     return (
         <Flex align={'center'} justify={'center'}>
@@ -150,7 +156,7 @@ export function Questions({ fromPage }) {
                                 defaultValue={3} min={1} max={5} step={1}
                                 aria-label='slider-ex-6'
                                 size="md"
-                                onChange={(val) => setWalkLevel(val)}>
+                                onChange={(val) => setStudyLevel(val)}>
                                 <SliderMark value={1} {...labelStyles}>
                                     1
                                 </SliderMark>
@@ -179,7 +185,7 @@ export function Questions({ fromPage }) {
                                 defaultValue={3} min={1} max={5} step={1}
                                 aria-label='slider-ex-6'
                                 size="md"
-                                onChange={(val) => setWalkLevel(val)}>
+                                onChange={(val) => setSmokerLevel(val)}>
                                 <SliderMark value={1} {...labelStyles}>
                                     1
                                 </SliderMark>
@@ -208,7 +214,7 @@ export function Questions({ fromPage }) {
                                 defaultValue={3} min={1} max={5} step={1}
                                 aria-label='slider-ex-6'
                                 size="md"
-                                onChange={(val) => setWalkLevel(val)}>
+                                onChange={(val) => setPetsLevel(val)}>
                                 <SliderMark value={1} {...labelStyles}>
                                     1
                                 </SliderMark>
