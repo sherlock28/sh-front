@@ -7,6 +7,7 @@ import {
     useColorModeValue,
     SimpleGrid
 } from '@chakra-ui/react';
+import { useGetTags } from "hooks/utils/useGetTags";
 import { CustomButton } from "components/commons/CustomButton";
 import { SectionHeader } from "components/commons/SectionHeader";
 import { sections } from "config/sections";
@@ -15,16 +16,29 @@ const REGISTAR = "Registrar";
 const GUARDAR = "Guardar";
 
 export function Tags({ fromPage }) {
-
     const [selectedTags, setSelectedTags] = useState([]);
 
-    const allTags = ['Comedia', 'Entretenimiento', 'Juegos', 'Deporte', 'Baile', 'Animes y cómics', 'Vida cotidiana', 'Automoción y vehículos', 'Música', 'Animales', 'Ciencia y educacíon', 'Comida y bebida', 'Familia', 'Belleza y estilo', 'Fitness y salud', 'Arte', 'Hogar y jardín', 'Trucos para la vida cotidiana', 'Motivición y consejos', 'Viajes', 'Actividades al aire libre'];
+    const { allTags } = useGetTags();
+
+    const isSelectedElem = (tag) => selectedTags.includes(tag);
 
     const selectTag = (tag) => {
+        if (isSelectedElem(tag)) {
+            const addedTagsArr = selectedTags.filter(t => t !== tag);
+            setSelectedTags([...addedTagsArr]);
+            return;
+        }
         setSelectedTags([...selectedTags, tag]);
-        console.log(tag);
-        console.log(selectedTags)
     }
+
+    const handleSubmit = () => {
+        const questionArr = JSON.parse(window.localStorage.getItem("questionsValue"));
+        const selectedTagsFiltered = [...new Set(selectedTags)];
+
+        console.log(selectedTagsFiltered)
+        console.log(questionArr)
+    }
+
 
     const { tags } = sections;
 
@@ -40,22 +54,25 @@ export function Tags({ fromPage }) {
 
                 <Box rounded={'lg'} bg={useColorModeValue('white', 'gray.700')} boxShadow={'lg'} p={8}>
 
-                    <SimpleGrid columns={3} spacing={10}>
-                        {allTags.map((tg) => (
+                    <SimpleGrid columns={6} spacing={10}>
+                        {allTags?.map((tg) => (
                             <Box
+                                id={`tag-${tg?.id}`}
                                 size='lg'
                                 padding={3}
-                                key={tg}
+                                key={tg?.id}
                                 borderRadius='full'
-                                background='white'
                                 color='black'
-                                boxShadow='md'
                                 fontWeight='medium'
                                 textAlign='center'
+                                background={isSelectedElem(tg?.description) ? '#F5F5F5' : 'white'}
+                                cursor={isSelectedElem(tg?.description) ? 'pointer' : ''}
+                                transform={isSelectedElem(tg?.description) ? 'translateY(-2px)' : ''}
+                                boxShadow={isSelectedElem(tg?.description) ? 'lg' : 'md'}
                                 _hover={{ cursor: 'pointer', background: "#F5F5F5", transform: 'translateY(-2px)', boxShadow: 'lg' }}
-                                onClick={() => selectTag(tg)}
+                                onClick={() => selectTag(tg?.description)}
                             >
-                                {tg}
+                                {tg?.description}
                             </Box>
                         ))}
                     </SimpleGrid>
@@ -63,7 +80,7 @@ export function Tags({ fromPage }) {
                     <Stack spacing={10} mt={10}>
                         <Center>
                             <CustomButton
-                                handleClick={() => { }}
+                                handleClick={handleSubmit}
                                 type="submit"
                                 isLoading={false}
                                 loadingText="Enviando"
