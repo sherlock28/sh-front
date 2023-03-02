@@ -41,9 +41,13 @@ mutation RegisterStudentUser($lastname: String, $firstname: String, $gender: Str
                 id
                 firstname
                 lastname
+              	gender
+              	birth_date
                 users {
                     id
+                    username
                     email
+                  	bio
                     user_category {
                         id
                         description
@@ -54,6 +58,7 @@ mutation RegisterStudentUser($lastname: String, $firstname: String, $gender: Str
                     city {
                         id
                         name
+                      	state_id
                     }
                     career {
                         id
@@ -64,8 +69,3 @@ mutation RegisterStudentUser($lastname: String, $firstname: String, $gender: Str
         }
     }
 `;
-
-
-
-
-  
