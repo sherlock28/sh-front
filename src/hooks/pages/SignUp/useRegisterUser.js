@@ -11,6 +11,7 @@ import { encryptPassword } from "utils/encryptPassword";
 import { paths } from "config/paths";
 import { useSelector } from "react-redux";
 import { authSelector } from "store/slices/authSlice";
+import { getAgeFromBirthDate } from "utils/getAgeFromBirthDate";
 
 export function useRegisterUser() {
     
@@ -28,9 +29,9 @@ export function useRegisterUser() {
 
     useEffect(() => {
         if (isAuthenticated) {
-          setLocation(paths.search);
+            setLocation(paths.search);
         }
-      }, [isAuthenticated]);
+    }, [isAuthenticated]);
 
     useEffect(
         () => {
@@ -53,13 +54,29 @@ export function useRegisterUser() {
                     duration: 3000,
                     isClosable: true,
                 });
-
-                window.localStorage.setItem("isPerson", newStudentUser.insert_sh_persons.returning.at(0).id);
+                savingUserCreated(newStudentUser.insert_sh_persons.returning.at(0));
                 setLocation(paths.questions);
             }
         }, // eslint-disable-next-line
         [error, error_owner, newStudentUser, newOwnerUser]
-    );
+        );
+        
+    const savingUserCreated = (user) => {
+       
+        const userToSave = {
+            "id": user.id,
+            "fullname": `${user.lastname}, ${user.firstname}`,
+            "username": "johndoe",
+            "career": user.students.at(0).career.id,
+            "genre": user.gender,
+            "age": getAgeFromBirthDate(user.birth_date),
+            "state": user.students.at(0).city.state_id,
+            "city": user.students.at(0).city.id,
+            "bio": user.users.at(0).bio
+        };
+
+        window.localStorage.setItem("userCreated", JSON.stringify(userToSave));
+    }
 
     /**************************************************************************************/
 
