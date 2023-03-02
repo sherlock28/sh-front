@@ -6,11 +6,13 @@ import thunk from "redux-thunk";
 import userSlice from "./slices/userSlice";
 import authSlice from "./slices/authSlice";
 import publicationsSlice from "./slices/publicationsSlice";
+import recommSlice from "./slices/recommSlice";
 
 const reducers = combineReducers({
     user: userSlice,
     auth: authSlice,
-    publications: publicationsSlice
+    publications: publicationsSlice,
+    recomm: recommSlice
 });
 
 const persistConfig = {
