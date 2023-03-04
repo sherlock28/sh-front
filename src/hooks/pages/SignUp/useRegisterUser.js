@@ -3,6 +3,7 @@ import { useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import { useToast } from "@chakra-ui/react";
 import { useLocation } from "wouter";
+import { useDispatch } from "react-redux";
 import { REGISTER_STUDENT_USER } from "client/gql/mutations/registerUser/registerStudentUser";
 import { REGISTER_OWNER_USER } from "client/gql/mutations/registerUser/registerOwnerUser";
 import { getVarStudentUser } from "client/gql/mutations/registerUser/getVarStudentUser";
@@ -12,8 +13,10 @@ import { paths } from "config/paths";
 import { useSelector } from "react-redux";
 import { authSelector } from "store/slices/authSlice";
 import { getAgeFromBirthDate } from "utils/getAgeFromBirthDate";
+import { saveUserCreated } from "store/slices/recommSlice";
 
 export function useRegisterUser() {
+    const dispatch = useDispatch();
     
     // eslint-disable-next-line
     const [_, setLocation] = useLocation();
@@ -54,19 +57,19 @@ export function useRegisterUser() {
                     duration: 3000,
                     isClosable: true,
                 });
-                savingUserCreated(newStudentUser.insert_sh_persons.returning.at(0));
+                const user = makeUserToSave(newStudentUser.insert_sh_persons.returning.at(0));
+                dispatch(saveUserCreated(user));
                 setLocation(paths.questions);
             }
         }, // eslint-disable-next-line
         [error, error_owner, newStudentUser, newOwnerUser]
         );
         
-    const savingUserCreated = (user) => {
-       
+    const makeUserToSave = (user) => {
         const userToSave = {
             "id": user.id,
             "fullname": `${user.lastname}, ${user.firstname}`,
-            "username": "johndoe",
+            "username": user.users.at(0).username,
             "career": user.students.at(0).career.id,
             "genre": user.gender,
             "age": getAgeFromBirthDate(user.birth_date),
@@ -74,8 +77,7 @@ export function useRegisterUser() {
             "city": user.students.at(0).city.id,
             "bio": user.users.at(0).bio
         };
-
-        window.localStorage.setItem("userCreated", JSON.stringify(userToSave));
+        return userToSave;
     }
 
     /**************************************************************************************/
