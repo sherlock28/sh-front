@@ -13,11 +13,11 @@ import { paths } from "config/paths";
 import { useSelector } from "react-redux";
 import { authSelector } from "store/slices/authSlice";
 import { getAgeFromBirthDate } from "utils/getAgeFromBirthDate";
-import { saveUserCreated } from "store/slices/recommSlice";
+import { createNodeAction } from "store/slices/recommSlice";
 
 export function useRegisterUser() {
     const dispatch = useDispatch();
-    
+
     // eslint-disable-next-line
     const [_, setLocation] = useLocation();
     const toast = useToast();
@@ -57,21 +57,19 @@ export function useRegisterUser() {
                     duration: 3000,
                     isClosable: true,
                 });
-                const user = makeUserToSave(newStudentUser.insert_sh_persons.returning.at(0));
-                dispatch(saveUserCreated(user));
-                setLocation(paths.questions);
+                newStudentUser ? setLocation(paths.questions) : setLocation(paths.login);
             }
         }, // eslint-disable-next-line
         [error, error_owner, newStudentUser, newOwnerUser]
-        );
-        
+    );
+
     const makeUserToSave = (user) => {
         const userToSave = {
             "id": user.id,
             "fullname": `${user.lastname}, ${user.firstname}`,
             "username": user.users.at(0).username,
             "career": user.students.at(0).career.id,
-            "genre": user.gender,
+            "gender": user.gender,
             "age": getAgeFromBirthDate(user.birth_date),
             "state": user.students.at(0).city.state_id,
             "city": user.students.at(0).city.id,
@@ -91,7 +89,10 @@ export function useRegisterUser() {
     const onSubmitStudentUser = async data => {
         let variables = getVarStudentUser(data);
         variables.password = await encryptPassword(variables.password);
-        registerStudentUser({ variables });
+        registerStudentUser({ variables }).then(({ data }) => {
+            const user = makeUserToSave(data.insert_sh_persons.returning.at(0));
+            dispatch(createNodeAction(user));
+        });;
     };
 
     const onSubmitOwnerUser = async data => {

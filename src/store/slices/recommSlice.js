@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { recomm } from "services";
+import { recomm } from "services";
 
 const initialState = {
     userCreated: null,
@@ -13,8 +13,10 @@ export const recommSlice = createSlice({
     name: "recomm",
     initialState,
     reducers: {
-        setUserCreated: (state, action) => {
+        successUserCreated: (state, action) => {
             state.userCreated = action.payload;
+            state.isFetching = false;
+            state.isSuccess = true;
         },
         recommLoading: (state) => {
             if (state.isFetching === false) {
@@ -39,7 +41,7 @@ export const recommSlice = createSlice({
 });
 
 export const {
-    setUserCreated,
+    successUserCreated,
     recommLoading,
     success,
     failed,
@@ -47,17 +49,12 @@ export const {
 } = recommSlice.actions;
 
 
-export const saveUserCreated = (data) => async (dispatch) => {
-    window.localStorage.setItem("createdIdPerson", data.id);
-    dispatch(setUserCreated(data));
-};
-
 export const createNodeAction = (data) => async (dispatch) => {
     dispatch(recommLoading());
     try {
-        console.log(data)
-        // await recomm.createNodeService({ user: data });
-        dispatch(success());
+        window.localStorage.setItem("createdIdPerson", data.id);
+        await recomm.createNodeService({ user: data });
+        dispatch(successUserCreated());
     } catch (err) {
         console.error(err);
         dispatch(failed(err));
