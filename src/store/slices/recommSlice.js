@@ -33,6 +33,7 @@ export const recommSlice = createSlice({
             state.errorMessage = action.payload.error;
         },
         clearState: (state, action) => {
+            state.userCreated = null;
             state.isSuccess = false;
             state.isError = false;
             state.errorMessage = "";
@@ -47,7 +48,6 @@ export const {
     failed,
     clearState,
 } = recommSlice.actions;
-
 
 export const createNodeAction = (data) => async (dispatch) => {
     dispatch(recommLoading());
@@ -65,8 +65,10 @@ export const createRelationsAction = (data) => async (dispatch) => {
     dispatch(recommLoading());
     try {
         const idPerson = getCreatedIdPerson();
-        // await recomm.createRelationsService({ idPerson, user: data });
-        dispatch(success());
+        await recomm.createRelationsService({ idPerson, relations: data });
+        window.localStorage.removeItem("createdIdPerson");
+        window.localStorage.removeItem("questionsValue");
+        dispatch(clearState());
     } catch (err) {
         console.error(err);
         dispatch(failed(err));

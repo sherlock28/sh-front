@@ -7,11 +7,12 @@ import {
     useColorModeValue,
     SimpleGrid
 } from '@chakra-ui/react';
+import { useDispatch } from "react-redux";
 import { useGetTags } from "hooks/utils/useGetTags";
 import { CustomButton } from "components/commons/CustomButton";
 import { SectionHeader } from "components/commons/SectionHeader";
 import { sections } from "config/sections";
-import { useDispatch } from "react-redux";
+import { createRelationsAction } from "store/slices/recommSlice";
 
 const REGISTAR = "Registrar";
 const GUARDAR = "Guardar";
@@ -23,6 +24,7 @@ const musicGenresIds = [24, 25, 26, 27, 28, 29, 30];
 const hobbiesids = [31, 32, 33, 34, 35, 36, 37];
 
 export function Tags({ fromPage }) {
+    const dispatch = useDispatch();
 
     const [selectedTags, setSelectedTags] = useState([]);
 
@@ -66,7 +68,9 @@ export function Tags({ fromPage }) {
                 pets,
             },
             "lifestyles": questionArr
-        }
+        };
+
+        dispatch(createRelationsAction(body));
     }
 
     const { tags } = sections;
