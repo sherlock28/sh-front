@@ -62,7 +62,7 @@ export function HouseRegisterForm() {
           <Flex direction={["column", "column", "row", "row", "row"]}>
             <FormControl
               m={2}
-              w={["100%", "100%", "100%", "48%", "48%"]}
+              w={["94%", "98%", "100%", "46%", "46%"]}
               isInvalid={errors.typeHouse}
             >
               <FormLabel>Tipo de inmueble</FormLabel>
@@ -85,7 +85,10 @@ export function HouseRegisterForm() {
             direction={["column", "column", "row", "row", "row"]}
             margin="auto"
           >
-            <FormControl mt={4} isInvalid={errors.bedrooms}>
+            <FormControl
+              mt={4}
+              w={["100%", "100%", "100%", "48%", "48%"]}
+              isInvalid={errors.bedrooms}>
               <FormLabel>Cantidad de habitaciones</FormLabel>
               <NumberInput
                 id="bedrooms"
@@ -108,7 +111,10 @@ export function HouseRegisterForm() {
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl mt={4} isInvalid={errors.bathrooms}>
+            <FormControl
+              mt={4} 
+              w={["100%", "100%", "100%", "48%", "48%"]}
+              isInvalid={errors.bathrooms}>
               <FormLabel>Cantidad de baños</FormLabel>
               <NumberInput size="md" m={2} defaultValue={1} min={1} max={10}>
                 <NumberInputField
@@ -126,7 +132,10 @@ export function HouseRegisterForm() {
           </Flex>
 
           <Flex direction={["column", "column", "row", "row", "row"]}>
-            <FormControl w={"50%"} mt={4} isInvalid={errors.size}>
+            <FormControl 
+            mt={4} 
+            w={["100%", "100%", "100%", "48%", "48%"]} 
+            isInvalid={errors.size}>
               <FormLabel>Tamaño (m²)</FormLabel>
               <NumberInput size="md" m={2} defaultValue={40} min={0} max={100}>
                 <NumberInputField {...register("size", validateSize)} />
@@ -156,7 +165,7 @@ export function HouseRegisterForm() {
                   type="text"
                   placeholder="Dirección del inmueble..."
                   onChange={(e) => setAddress(e.target.value)}
-                  // {...register("address", validateAddress)}
+                // {...register("address", validateAddress)}
                 />
 
                 <Button
