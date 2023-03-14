@@ -14,9 +14,9 @@ Geocode.setLanguage("es");
 Geocode.setLocationType("ROOFTOP");
 
 export function useHouseRegisterForm() {
-//   const dispatch = useDispatch();
+  //   const dispatch = useDispatch();
   // eslint-disable-next-line
-//   const { isFetching, isSuccess, isError } = useSelector(housesSelector);
+  //   const { isFetching, isSuccess, isError } = useSelector(housesSelector);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -32,17 +32,20 @@ export function useHouseRegisterForm() {
     setCoordinates({ lat: -26.83002230629563, lng: -65.20258569223947 });
     setInitialCenter({ lat: -26.83002230629563, lng: -65.20258569223947 });
     setZoom(16);
-    // Geocode.fromAddress(address).then(
-    //   (response) => {
-    //     const { lat, lng } = response.results[0].geometry.location;
-    //     setCoordinates({ lat, lng });
-    //     setZoom(16);
-    //     setInitialCenter({ lat, lng });
-    //   },
-    //   (err) => {
-    //     console.error(err);
-    //   }
-    // );
+    if (address != "") {
+      Geocode.fromAddress(address).then(
+        (response) => {
+          const { lat, lng } = response.results[0].geometry.location;
+          setCoordinates({ lat, lng });
+          setZoom(16);
+          setInitialCenter({ lat, lng });
+          console.log({ lat, lng })
+        },
+        (err) => {
+          console.error(err);
+        }
+      );
+    }
   };
 
   const {
@@ -54,8 +57,41 @@ export function useHouseRegisterForm() {
   const [images, setImages] = useState([]);
   const [errorsImage, setErrorsImage] = useState({ message: "" });
   const [errorsCaptcha, setErrorsCaptcha] = useState({ message: "" });
-
   const [validCaptcha, setValidCaptcha] = useState(false);
+
+  /**************************************************************************************/
+
+  const onSubmit = (data) => {
+    if (images.length === 0) {
+      setErrorsImage({
+        ...errorsImage,
+        message: "Debes seleccionar al menos una foto.",
+      });
+      return;
+    }
+    // if (!validCaptcha) {
+    //   setErrorsCaptcha({
+    //     ...errorsCaptcha,
+    //     message: "Completa el captcha.",
+    //   });
+    //   return;
+    // }
+    data.coordanates = coordinates;
+    data.address = address;
+
+    console.log(data)
+    console.log({ images })
+    // dispatch(registerHouseAction({ data, images }));
+  };
+
+
+  function onChange(value) {
+    value ? setValidCaptcha(true) : setValidCaptcha(false);
+  }
+
+  /**************************************************************************************/
+
+  /* Images */
 
   const onFileChange = (e) => {
     const img = e.target.files[0];
@@ -66,31 +102,6 @@ export function useHouseRegisterForm() {
     });
   };
 
-  const onSubmit = (data) => {
-    if (images.length === 0) {
-      setErrorsImage({
-        ...errorsImage,
-        message: "Debes seleccionar al menos una foto.",
-      });
-      return;
-    }
-    if (!validCaptcha) {
-      setErrorsCaptcha({
-        ...errorsCaptcha,
-        message: "Completa el captcha.",
-      });
-      return;
-    }
-    data.coordanates = coordinates;
-    data.address = address;
-    // dispatch(registerHouseAction({ data, images }));
-  };
-
-  
-  function onChange(value) {
-    value ? setValidCaptcha(true) : setValidCaptcha(false);
-  }
-
   const removeImage = (index) => {
     let newImages = [];
     if (index !== -1) {
@@ -100,6 +111,8 @@ export function useHouseRegisterForm() {
       setImages(newImages);
     }
   };
+
+  /**************************************************************************************/
 
   return {
     setAddress,

@@ -23,9 +23,9 @@ import {
   validateTypeHouse,
   validateBedrooms,
   validateBathrooms,
-  validateSize,
+  validateSize
 } from "utils/validations/PublicationRegister";
-// import { GoogleMapsContainer } from "./GoogleMaps";
+import { MapContainer } from "components/commons/MapContainer";
 import ReCAPTCHA from "react-google-recaptcha";
 // import { ModalQuestion } from "pages/owners/components/ModalQuestion";
 import { CustomButton } from "components/commons/CustomButton";
@@ -222,15 +222,15 @@ export function HouseRegisterForm() {
           </Flex>
 
           <Box height={"500px"} mt={4}>
-            {/* <GoogleMapsContainer
+            <MapContainer
               initialCenter={coordinates ? coordinates : initialCenter}
               zoom={zoom}
               isMarkerShown={true}
               coordinates={coordinates}
-            /> */}
+            />
           </Box>
 
-          <Box textAlign="center" mt={4} mb={8}>
+          <Box textAlign="center" mt={10} mb={8}>
             <Heading as="h4" size="md">
               Fotos
             </Heading>
@@ -305,17 +305,17 @@ export function HouseRegisterForm() {
             </Box>
           </SimpleGrid>
 
-          <FormControl mt={16} isInvalid={errorsCaptcha.message}>
+          {/* <FormControl mt={16} isInvalid={errorsCaptcha.message}>
             <Center d="flex" flexDir="column">
-              {/* <ReCAPTCHA
+              <ReCAPTCHA
                 sitekey={`${process.env.REACT_APP_SITE_KEY}`}
                 onChange={onChange}
-              /> */}
+              />
               <FormErrorMessage>
                 {errorsCaptcha && errorsCaptcha.message}
               </FormErrorMessage>
             </Center>
-          </FormControl>
+          </FormControl> */}
 
           <Center mt={8}>
             <CustomButton
