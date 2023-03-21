@@ -7,12 +7,14 @@ import userSlice from "./slices/userSlice";
 import authSlice from "./slices/authSlice";
 import publicationsSlice from "./slices/publicationsSlice";
 import recommSlice from "./slices/recommSlice";
+import ownershipSlice from "./slices/ownershipSlice";
 
 const reducers = combineReducers({
     user: userSlice,
     auth: authSlice,
     publications: publicationsSlice,
-    recomm: recommSlice
+    recomm: recommSlice,
+    ownership: ownershipSlice
 });
 
 const persistConfig = {
