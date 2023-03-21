@@ -75,7 +75,7 @@ export function useHouseRegisterForm() {
     //   });
     //   return;
     // }
-    data.coordanates = coordinates;
+    data.coordinates = coordinates;
     data.address = address;
 
     console.log(data)
