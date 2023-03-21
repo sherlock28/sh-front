@@ -39,7 +39,6 @@ export function useHouseRegisterForm() {
           setCoordinates({ lat, lng });
           setZoom(16);
           setInitialCenter({ lat, lng });
-          console.log({ lat, lng })
         },
         (err) => {
           console.error(err);

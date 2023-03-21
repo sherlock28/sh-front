@@ -31,6 +31,8 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { CustomButton } from "components/commons/CustomButton";
 import { useHouseRegisterForm } from "hooks/pages/HouseRegister/useHouseRegisterForm";
 
+const SOURCE = "register-ownership";
+
 export function HouseRegisterForm() {
   const {
     // isFetching,
@@ -112,7 +114,7 @@ export function HouseRegisterForm() {
             </FormControl>
 
             <FormControl
-              mt={4} 
+              mt={4}
               w={["100%", "100%", "100%", "48%", "48%"]}
               isInvalid={errors.bathrooms}>
               <FormLabel>Cantidad de baños</FormLabel>
@@ -132,10 +134,10 @@ export function HouseRegisterForm() {
           </Flex>
 
           <Flex direction={["column", "column", "row", "row", "row"]}>
-            <FormControl 
-            mt={4} 
-            w={["100%", "100%", "100%", "48%", "48%"]} 
-            isInvalid={errors.size}>
+            <FormControl
+              mt={4}
+              w={["100%", "100%", "100%", "48%", "48%"]}
+              isInvalid={errors.size}>
               <FormLabel>Tamaño (m²)</FormLabel>
               <NumberInput size="md" m={2} defaultValue={40} min={0} max={100}>
                 <NumberInputField {...register("size", validateSize)} />
@@ -227,6 +229,7 @@ export function HouseRegisterForm() {
               zoom={zoom}
               isMarkerShown={true}
               coordinates={coordinates}
+              source={SOURCE}
             />
           </Box>
 
