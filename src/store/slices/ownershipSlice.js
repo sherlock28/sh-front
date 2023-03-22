@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ownership } from "services";
 
 const initialState = {
     ownerships: [],
@@ -48,14 +47,6 @@ export const {
     clearState,
 } = ownershipSlice.actions;
 
-export const createOwnership = data => async (dispatch) => {
-    dispatch(ownershipsLoading());
-
-    const { query, variables } = data;
-    const ownership_id = await ownership.createOwnershipService({ query, variables });
-
-    dispatch(ownershipsSuccess(ownership_id));
-};
 
 export default ownershipSlice.reducer;
 

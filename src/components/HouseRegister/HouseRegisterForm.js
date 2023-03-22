@@ -35,9 +35,6 @@ const SOURCE = "register-ownership";
 
 export function HouseRegisterForm() {
   const {
-    // isFetching,
-    // isSuccess,
-    // isError,
     setAddress,
     initialCenter,
     coordinates,
@@ -48,13 +45,11 @@ export function HouseRegisterForm() {
     errors,
     images,
     errorsImage,
-    errorsCaptcha,
     onFileChange,
     onSubmit,
-    onChange,
+    loading,
+    error,
     removeImage,
-    isOpen,
-    onClose,
   } = useHouseRegisterForm();
 
   return (
@@ -308,28 +303,15 @@ export function HouseRegisterForm() {
             </Box>
           </SimpleGrid>
 
-          {/* <FormControl mt={16} isInvalid={errorsCaptcha.message}>
-            <Center d="flex" flexDir="column">
-              <ReCAPTCHA
-                sitekey={`${process.env.REACT_APP_SITE_KEY}`}
-                onChange={onChange}
-              />
-              <FormErrorMessage>
-                {errorsCaptcha && errorsCaptcha.message}
-              </FormErrorMessage>
-            </Center>
-          </FormControl> */}
-
           <Center mt={8}>
             <CustomButton
               handleClick={handleSubmit(onSubmit)}
               type="submit"
-              isLoading={false}
+              isLoading={loading}
               loadingText="Enviando"
               width="50%"
               textButton="Registrar"
             />
-            {/* <ModalQuestion isOpen={isOpen} onClose={onClose} /> */}
           </Center>
         </form>
       </Box>

@@ -8,7 +8,7 @@ export function getVarOwnerships(data) {
         rating: 0, 
         ownerships_state: true, 
         ownerships_types_id: data.typeHouse, 
-        owner_id: -1,
+        owners_id: -1,
         lat: data?.coordinates.lat, 
         lon: data?.coordinates.lng, 
         address: data.address, 
