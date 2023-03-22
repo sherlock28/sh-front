@@ -71,7 +71,7 @@ export function Navbar() {
                 </Flex>
 
                 {isAuthenticated ?
-                    <AccountNav username={user.username}/>
+                    <AccountNav userId={user.id} username={user.username} />
 
                     :
 

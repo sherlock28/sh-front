@@ -5,13 +5,13 @@ import { useLocation } from "wouter";
 import { paths } from "config/paths";
 import { signOutAction } from "store/slices/authSlice";
 
-export function AccountNav({ username }) {
+export function AccountNav({ username, userId }) {
     // eslint-disable-next-line
     const [_, setLocation] = useLocation();
     const dispatch = useDispatch();
 
     const goToMyAccount = () => {
-        setLocation(`/cuenta/${username}`);
+        setLocation(`/cuenta/${userId}`);
     };
 
     const handleSubmit = () => {
