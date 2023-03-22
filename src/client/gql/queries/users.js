@@ -33,3 +33,15 @@ export const GET_STUDENT_USER_BY_ID = gql`
       }
     }
 `;
+
+export const GET_OWNER_BY_ID = gql`
+query GetOwnerById($id: Int) {
+  sh_users(where: {id: {_eq: $id}}) {
+    person {
+      owners {
+        id
+      }
+    }
+  }
+}
+`;
