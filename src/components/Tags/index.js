@@ -54,8 +54,8 @@ export function Tags({ fromPage }) {
         selectedTagsFiltered.forEach(tag => {
             if (sportsIds.includes(tag)) sports.push(tag)
             if (petsIds.includes(tag)) pets.push(tag)
-            if (genresIds.includes(tag)) genremusic.push(tag)
-            if (musicGenresIds.includes(tag)) genremovies.push(tag)
+            if (musicGenresIds.includes(tag)) genremusic.push(tag)
+            if (genresIds.includes(tag)) genremovies.push(tag)
             if (hobbiesids.includes(tag)) hobbies.push(tag)
         });
 
