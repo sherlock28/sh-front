@@ -4,16 +4,16 @@ export const NAV_ITEMS = [
         href: '/',
     },
     {
-        label: 'Find Work',
+        label: 'Buscar',
         children: [
             {
-                label: 'Job Board',
-                subLabel: 'Find your dream design job',
+                label: 'Buscar alquiler',
+                subLabel: 'Encuentra tu proximo hogar',
                 href: '#',
             },
             {
-                label: 'Freelance Projects',
-                subLabel: 'An exclusive list for contract work',
+                label: 'Buscar Compañero de cuarto',
+                subLabel: 'Encuentra a tu compañero de cuarto compatible ideal para ti',
                 href: '#',
             },
         ],

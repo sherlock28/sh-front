@@ -22,25 +22,12 @@ export function Landing() {
     };
     
     return (
+    <div>
         <Stack minH={'70vh'} direction={{ base: 'column', md: 'row' }}>
             <Flex p={8} flex={1} align={'center'} justify={'center'}>
                 <Stack spacing={6} w={'full'} maxW={'lg'}>
                     <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
-                        {/* <Text
-                            as={'span'}
-                            position={'relative'}
-                            _after={{
-                                content: "''",
-                                width: 'full',
-                                height: useBreakpointValue({ base: '20%', md: '30%' }),
-                                position: 'absolute',
-                                bottom: 1,
-                                left: 0,
-                                bg: 'blue.400',
-                                zIndex: -1,
-                            }}>
-                            Freelance
-                        </Text> */}
+                        {}
                         <br />{' '}
                         <Text color={'black'} as={'span'}>
                             Tu sitio para encontrar tu hogar
@@ -82,5 +69,73 @@ export function Landing() {
                 />
             </Flex>
         </Stack>
+        <div>
+            <br></br>
+        </div>
+        <Stack minH={'70vh'} direction={{ base: 'column', md: 'row' }}>
+            <Flex p={8} flex={1} align={'center'} justify={'center'}>
+                <Stack spacing={6} w={'full'} maxW={'lg'}>
+                    <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
+                        {}
+                        <br />{' '}
+                        <Text color={'black'} as={'span'}>
+                            Tambien pensamos en los propietarios...
+                        </Text>{' '}
+                    </Heading>
+                    <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
+                        Ofrecemos la posibilidad de que los propietarios puedan llevar un control y gestion de sus propiedades de forma facil y amigable.
+                    </Text>
+                    <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
+                        
+                    </Stack>
+                </Stack>
+            </Flex>
+            <Flex flex={1}>
+                <Image
+                    alt={'Login Image'}
+                    objectFit={'cover'}
+                    src={
+                        'https://apimonteleon.com/wp-content/uploads/2014/03/vender-casa.jpg'
+                    }
+                />
+            </Flex>
+        </Stack>
+
+        <div>
+            <br></br>
+        </div>
+        <Stack minH={'70vh'} direction={{ base: 'column', md: 'row' }} >
+            <Flex p={8} flex={1} align={'center'} justify={'center'}>
+                <Stack spacing={6} w={'full'} maxW={'lg'}>
+                    <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
+                        {}
+                        <br />{' '}
+                        <Text color={'black'} as={'span'}>
+                            Encuentra a tu compañero de cuarto
+                        </Text>{' '}
+                    </Heading>
+                    <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
+                        Con nuestro sistema de recomendación basado en tus gustos y preferencias puedes encontrar a tu compañero de cuarto ideal para vivir.
+                    </Text>
+                    <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
+                        
+                    </Stack>
+                </Stack>
+            </Flex>
+            <Flex flex={1}>
+                <Image
+                    alt={'Login Image'}
+                    objectFit={'cover'}
+                    src={
+                        'https://media.istockphoto.com/id/472860286/es/vector/sill%C3%B3n-de-lectura.jpg?s=612x612&w=0&k=20&c=SwUCYsPEIS1lW5IYLIS9RQH4iVSNMaJ8lU7IYRZ9ZDo='
+                    }
+                />
+            </Flex>
+        </Stack>
+        <br></br>
+        <br></br>
+    </div>
+        
+        
     );
 }
