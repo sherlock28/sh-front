@@ -22,7 +22,7 @@ export const sections = {
     profile: {
         section: "Profile",
         titleAccount: "Mi cuenta",
-        titlePublications: "Mis publicaciones",
+        titleOwnerships: "Mis Propiedades",
     },
     search: {
         section: "Search",

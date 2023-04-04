@@ -26,7 +26,7 @@ export function AccountTabs() {
           <Tab>Mi cuenta</Tab>
           {
             user_category === USER_CATEGORIES.OWNER ?
-              <Tab>Publicaciones</Tab>
+              <Tab>Propiedades</Tab>
               : <></>
           }
           {
@@ -58,7 +58,7 @@ export function AccountTabs() {
               <TabPanel>
                 <SectionHeader
                   section={profile.section}
-                  sectionTitle={profile.titlePublications}
+                  sectionTitle={profile.titleOwnerships}
                 />
                 <PublicationsList />
               </TabPanel>
