@@ -13,7 +13,7 @@ export function AboutUsView() {
         <Stack minH={'70vh'} direction={{ base: 'column', md: 'row' }}>
             <Flex p={8} flex={1} justify={'center'}>
                 <Stack spacing={6} w={'full'} maxW={'lg'}>
-                    <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
+                    <Heading align={'center'} justify={'center'} fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
                         <Text color={'black'} as={'span'}>
                             Bienvenido
                         </Text>
