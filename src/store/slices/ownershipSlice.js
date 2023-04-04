@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     ownerships: [],
     ownership: null,
+    ownershipIdSelected: -1,
     isFetching: false,
     isSuccess: false,
     isError: false,
@@ -37,6 +38,9 @@ export const ownershipSlice = createSlice({
             state.isError = false;
             state.errorMessage = "";
         },
+        setOwnershipId: (state, action) => {
+            state.ownershipIdSelected = action.payload;
+        }
     },
 });
 
@@ -45,6 +49,7 @@ export const {
     ownershipsSuccess,
     ownershipsFailed,
     clearState,
+    setOwnershipId,
 } = ownershipSlice.actions;
 
 
