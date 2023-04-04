@@ -35,3 +35,17 @@ export const GET_TAGS = gql`
         }
     }  
 `;
+
+export const GET_OWNERSHIPS_BY_OWNER_ID = gql`
+    query GetOwnershipsByOwnerId($owner_id: bigint) {
+        sh_ownerships(where: {owners_id: {_eq: $owner_id}}) {
+            id
+            address {
+                address
+                floor
+                apartment
+            }
+            owners_id
+        }
+    }
+`;
