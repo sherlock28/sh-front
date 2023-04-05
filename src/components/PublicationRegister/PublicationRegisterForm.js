@@ -32,7 +32,6 @@ import {
   validatePhone,
   validateEmailSignUp
 } from "utils/validations/PublicationRegister";
-import ReCAPTCHA from "react-google-recaptcha";
 import { CustomButton } from "components/commons/CustomButton";
 import { useRegisterPublicationForm } from "hooks/pages/PublicationRegister/usePublicationRegister";
 
@@ -233,10 +232,6 @@ export function PublicationRegisterForm() {
 
         <FormControl mt={16} isInvalid={errorsCaptcha.message}>
           <Center d="flex" flexDir="column">
-            {/* <ReCAPTCHA
-              sitekey={`${process.env.REACT_APP_SITE_KEY}`}
-              onChange={onChange}
-            /> */}
             <FormErrorMessage>
               {errorsCaptcha && errorsCaptcha.message}
             </FormErrorMessage>
