@@ -49,3 +49,12 @@ export const GET_OWNERSHIPS_BY_OWNER_ID = gql`
         }
     }
 `;
+
+export const IS_PUBLISHED = gql`
+    query IsPublished($id: bigint) {
+        sh_publications(where: {ownerships_id: {_eq: $id}})
+        {
+            id
+        }
+    }  
+`;

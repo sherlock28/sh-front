@@ -11,7 +11,7 @@ export const paths = {
     contacts: "/contactos",
     why: "/porque",
     houseRegister: "/registrar/inmuebles",
-    publicationRegister: "/registrar/publicaciones",
+    publicationRegister: "/registrar/publicacion/:id",
     search: "/buscar",
     publicationsList: "/publicaciones",
     publicationDetail: "/publicaciones/detalle/:id",
