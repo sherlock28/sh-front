@@ -9,12 +9,12 @@ export const NAV_ITEMS = [
             {
                 label: 'Buscar alquiler',
                 subLabel: 'Encuentra tu proximo hogar',
-                href: '#',
+                href: '/buscar',
             },
             {
                 label: 'Buscar Compañero de cuarto',
                 subLabel: 'Encuentra a tu compañero de cuarto compatible ideal para ti',
-                href: '#',
+                href: '/buscar/roommate',
             },
         ],
     },
