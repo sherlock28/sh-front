@@ -17,5 +17,6 @@ export const paths = {
     publicationDetail: "/publicaciones/detalle/:id",
     forgetterpass: "/recuperar",
     members: "/integrantes",
-    findRoommate: "/buscar/roommate"
+    findRoommate: "/buscar/roommate",
+    faq: "/faq"
   };
