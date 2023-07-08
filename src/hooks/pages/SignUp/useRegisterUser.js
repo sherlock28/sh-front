@@ -5,8 +5,9 @@ import { useToast } from "@chakra-ui/react";
 import { useLocation } from "wouter";
 import { useDispatch } from "react-redux";
 import { REGISTER_STUDENT_USER } from "client/gql/mutations/registerUser/registerStudentUser";
+import { REGISTER_STUDENT_USER_WITH_FACEBOOK } from "client/gql/mutations/registerUser/registerStudentUserFacebook";
 import { REGISTER_OWNER_USER } from "client/gql/mutations/registerUser/registerOwnerUser";
-import { getVarStudentUser } from "client/gql/mutations/registerUser/getVarStudentUser";
+import { getVarStudentUser,getVarStudentUserFacebook } from "client/gql/mutations/registerUser/getVarStudentUser";
 import { getVarOwnerUser } from "client/gql/mutations/registerUser/getVarOwnerUser";
 import { encryptPassword } from "utils/encryptPassword";
 import { paths } from "config/paths";
@@ -24,6 +25,7 @@ export function useRegisterUser() {
 
     /**************************************************************************************/
     const [registerStudentUser, { loading, error, data: newStudentUser }] = useMutation(REGISTER_STUDENT_USER);
+    const [registerStudentUserWithFacebook, { loading:fromFacebook, error:errorFromFacebook, data: newStudentUserFromFacebook }] = useMutation(REGISTER_STUDENT_USER_WITH_FACEBOOK);
     const [registerOwnerUser, { loading_owner, error_owner, data: newOwnerUser }] = useMutation(REGISTER_OWNER_USER);
 
     /**************************************************************************************/
@@ -95,6 +97,21 @@ export function useRegisterUser() {
         });;
     };
 
+    const onSubmitStudentUserFacebook = async ({data}) => {
+        console.log(data)
+        let variables = getVarStudentUserFacebook(data);
+        console.log(variables);
+        registerStudentUserWithFacebook({ variables }).then(({ data }) => {
+            console.log(data);
+            /* const user = makeUserToSave(data.insert_sh_persons.returning.at(0));
+            dispatch(createNodeAction(user)); */
+        }).catch(error => {
+            console.log("");
+        }    
+        );;
+        console.log(errorFromFacebook); 
+    };
+
     const onSubmitOwnerUser = async data => {
         let variables = getVarOwnerUser(data);
         variables.password = await encryptPassword(variables.password);
@@ -127,5 +144,6 @@ export function useRegisterUser() {
         errors,
         showPass,
         handleShowPass,
+        onSubmitStudentUserFacebook
     };
 }

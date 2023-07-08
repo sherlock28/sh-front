@@ -21,3 +21,15 @@ export function getVarStudentUser(data) {
 
     return variables;
 }
+
+export function getVarStudentUserFacebook(data) {
+
+    let variables = {
+        lastname: data.last_name,
+        firstname: data.first_name,
+        email: data.email,
+        user_status: true
+    };
+
+    return variables;
+}

@@ -19,6 +19,7 @@ import { paths } from "config/paths";
 import { Link } from "wouter";
 import { CustomButton } from "components/commons/CustomButton";
 import { useSignInForm } from "hooks/pages/SignIn/useSignInForm";
+import {useRegisterUser} from "hooks/pages/SignUp/useRegisterUser"
 import {
   validateEmailSignIn,
   validatePasswordSignIn,
@@ -67,8 +68,12 @@ export function SignIn() {
     onSubmitLoggin,
     showPass,
     handleShowPass,
-    isFetching
+    isFetching,
   } = useSignInForm();
+
+  const {
+    onSubmitStudentUserFacebook
+  } = useRegisterUser();
 
   return (
     <Flex align={'center'} justify={'center'}>
@@ -131,7 +136,7 @@ export function SignIn() {
             <LoginSocialFacebook
               appId={process.env.REACT_APP_FB_APP_ID}
               onResolve={(response) => {
-                console.log(response);
+                onSubmitStudentUserFacebook(response)
               }}
               onReject={(error) => { console.log(error) }}>
               <FacebookLoginButton></FacebookLoginButton>
