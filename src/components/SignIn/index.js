@@ -1,3 +1,4 @@
+import React, { useCallback, useState } from 'react';
 import {
   Flex,
   Box,
@@ -25,7 +26,37 @@ import {
 import { SectionHeader } from "components/commons/SectionHeader";
 import { sections } from "config/sections";
 
+import {
+  LoginSocialGoogle,
+  LoginSocialFacebook,
+  LoginSocialTwitter
+} from 'reactjs-social-login';
+
+import {
+  FacebookLoginButton,
+  GoogleLoginButton,
+  TwitterLoginButton,
+} from 'react-social-login-buttons';
+
 export function SignIn() {
+
+  const REDIRECT_URI =
+    'http://localhost:3000';
+  // const REDIRECT_URI = 'http://localhost:3000/account/login'
+  const [provider, setProvider] = useState('');
+  const [profile, setProfile] = useState(null)
+
+  const onLoginStart = useCallback(() => {
+    alert('login start');
+  }, []);
+
+  const onLogoutSuccess = useCallback(() => {
+    setProfile(null);
+    setProvider('');
+    alert('logout success');
+  }, []);
+
+  const onLogout = useCallback(() => { }, []);
 
   const { login } = sections;
 
@@ -94,15 +125,32 @@ export function SignIn() {
                 />
               </Center>
 
-              {/* <Button
-                bg={'blue.400'}
-                color={'white'}
-                _hover={{
-                  bg: 'blue.500',
-                }}>
-                Ingresar
-              </Button> */}
             </Stack>
+            <br></br>
+            <GoogleLoginButton></GoogleLoginButton>
+            <LoginSocialFacebook
+              appId={process.env.REACT_APP_FB_APP_ID}
+              onResolve={(response) => {
+                console.log(response);
+              }}
+              onReject={(error) => { console.log(error) }}>
+              <FacebookLoginButton></FacebookLoginButton>
+            </LoginSocialFacebook>
+            <LoginSocialTwitter
+              isOnlyGetToken
+              client_id={process.env.REACT_APP_TWITTER_V2_APP_KEY}
+              redirect_uri={REDIRECT_URI}
+              onLoginStart={onLoginStart}
+              onResolve={({ provider, data }) => {
+                setProvider(provider)
+                setProfile(data)
+              }}
+              onReject={(err) => {
+                console.log(err)
+              }}
+            >
+              <TwitterLoginButton />
+            </LoginSocialTwitter>
           </Stack>
         </Box>
       </Stack>
