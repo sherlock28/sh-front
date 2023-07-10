@@ -19,7 +19,7 @@ import { paths } from "config/paths";
 import { Link } from "wouter";
 import { CustomButton } from "components/commons/CustomButton";
 import { useSignInForm } from "hooks/pages/SignIn/useSignInForm";
-import {useRegisterUser} from "hooks/pages/SignUp/useRegisterUser"
+import { useRegisterUser } from "hooks/pages/SignUp/useRegisterUser"
 import {
   validateEmailSignIn,
   validatePasswordSignIn,
@@ -30,7 +30,8 @@ import { sections } from "config/sections";
 import {
   LoginSocialGoogle,
   LoginSocialFacebook,
-  LoginSocialTwitter
+  LoginSocialTwitter,
+  IResolveParams
 } from 'reactjs-social-login';
 
 import {
@@ -75,6 +76,8 @@ export function SignIn() {
     onSubmitStudentUserFacebook
   } = useRegisterUser();
 
+
+  
   return (
     <Flex align={'center'} justify={'center'}>
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
@@ -132,7 +135,40 @@ export function SignIn() {
 
             </Stack>
             <br></br>
-            <GoogleLoginButton></GoogleLoginButton>
+
+
+            <LoginSocialGoogle
+              isOnlyGetToken
+              client_id={process.env.REACT_APP_GG_APP_ID || ''}
+              onLoginStart={onLoginStart}
+              onResolve={({ provider, data }) => {
+                setProvider(provider)
+                setProfile(data)
+                console.log(provider)
+                console.log(data)
+                let accessToken = data.access_token;
+                fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+                  headers: {
+                    Authorization: `Bearer ${accessToken}`
+                  }
+                })
+                  .then(response => response.json())
+                  .then(data => {
+                    // Aquí puedes trabajar con los datos obtenidos
+                    console.log(data);
+                  })
+                  .catch(error => {
+                    console.error('Error en la solicitud:', error);
+                  });
+                
+              }}
+              onReject={(err) => {
+                console.log(err)
+              }}
+            >
+              <GoogleLoginButton />
+            </LoginSocialGoogle>
+
             <LoginSocialFacebook
               appId={process.env.REACT_APP_FB_APP_ID}
               onResolve={(response) => {

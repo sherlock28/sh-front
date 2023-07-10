@@ -103,13 +103,13 @@ export function useRegisterUser() {
         console.log(variables);
         registerStudentUserWithFacebook({ variables }).then(({ data }) => {
             console.log(data);
-            /* const user = makeUserToSave(data.insert_sh_persons.returning.at(0));
-            dispatch(createNodeAction(user)); */
         }).catch(error => {
-            console.log("");
+            console.log(error.graphQLErrors[0].extensions);
+            if(error.graphQLErrors[0].extensions.code == "constraint-violation"){
+                console.log("Capturado error.")
+            }
         }    
         );;
-        console.log(errorFromFacebook); 
     };
 
     const onSubmitOwnerUser = async data => {
