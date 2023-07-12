@@ -33,3 +33,15 @@ export function getVarStudentUserFacebook(data) {
 
     return variables;
 }
+
+export function getVarStudentUserGoogle(data) {
+
+    let variables = {
+        lastname: data.family_name,
+        firstname: data.given_name,
+        email: data.email,
+        user_status: true
+    };
+
+    return variables;
+}

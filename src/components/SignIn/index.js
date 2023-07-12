@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Flex,
   Box,
@@ -19,47 +19,16 @@ import { paths } from "config/paths";
 import { Link } from "wouter";
 import { CustomButton } from "components/commons/CustomButton";
 import { useSignInForm } from "hooks/pages/SignIn/useSignInForm";
-import { useRegisterUser } from "hooks/pages/SignUp/useRegisterUser"
-import {
-  validateEmailSignIn,
-  validatePasswordSignIn,
-} from "utils/validations/SignIn";
+import { useLoginWithSocialNet } from "hooks/utils/useLoginWithSocialNet";
+import { validateEmailSignIn, validatePasswordSignIn } from "utils/validations/SignIn";
 import { SectionHeader } from "components/commons/SectionHeader";
 import { sections } from "config/sections";
+import { LoginSocialGoogle, LoginSocialFacebook, LoginSocialTwitter } from 'reactjs-social-login';
+import { FacebookLoginButton, GoogleLoginButton, TwitterLoginButton } from 'react-social-login-buttons';
 
-import {
-  LoginSocialGoogle,
-  LoginSocialFacebook,
-  LoginSocialTwitter,
-  IResolveParams
-} from 'reactjs-social-login';
-
-import {
-  FacebookLoginButton,
-  GoogleLoginButton,
-  TwitterLoginButton,
-} from 'react-social-login-buttons';
+const REDIRECT_URI = 'http://localhost:3000/buscar';
 
 export function SignIn() {
-
-  const REDIRECT_URI =
-    'http://localhost:3000';
-  // const REDIRECT_URI = 'http://localhost:3000/account/login'
-  const [provider, setProvider] = useState('');
-  const [profile, setProfile] = useState(null)
-
-  const onLoginStart = useCallback(() => {
-    alert('login start');
-  }, []);
-
-  const onLogoutSuccess = useCallback(() => {
-    setProfile(null);
-    setProvider('');
-    alert('logout success');
-  }, []);
-
-  const onLogout = useCallback(() => { }, []);
-
   const { login } = sections;
 
   const {
@@ -72,12 +41,8 @@ export function SignIn() {
     isFetching,
   } = useSignInForm();
 
-  const {
-    onSubmitStudentUserFacebook
-  } = useRegisterUser();
+  const { onSubmitStudentUserFacebook, onSubmitStudentUserGoogle, GOOGLE_AUTH_SCOPE, setProvider, setProfile } = useLoginWithSocialNet();
 
-
-  
   return (
     <Flex align={'center'} justify={'center'}>
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
@@ -136,36 +101,17 @@ export function SignIn() {
             </Stack>
             <br></br>
 
-
             <LoginSocialGoogle
-              isOnlyGetToken
+              scope={GOOGLE_AUTH_SCOPE}
               client_id={process.env.REACT_APP_GG_APP_ID || ''}
-              onLoginStart={onLoginStart}
               onResolve={({ provider, data }) => {
                 setProvider(provider)
                 setProfile(data)
-                console.log(provider)
-                console.log(data)
-                let accessToken = data.access_token;
-                fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-                  headers: {
-                    Authorization: `Bearer ${accessToken}`
-                  }
-                })
-                  .then(response => response.json())
-                  .then(data => {
-                    // Aquí puedes trabajar con los datos obtenidos
-                    console.log(data);
-                  })
-                  .catch(error => {
-                    console.error('Error en la solicitud:', error);
-                  });
-                
+                onSubmitStudentUserGoogle({ data })
               }}
               onReject={(err) => {
-                console.log(err)
-              }}
-            >
+                console.error(err)
+              }}>
               <GoogleLoginButton />
             </LoginSocialGoogle>
 
@@ -174,24 +120,26 @@ export function SignIn() {
               onResolve={(response) => {
                 onSubmitStudentUserFacebook(response)
               }}
-              onReject={(error) => { console.log(error) }}>
-              <FacebookLoginButton></FacebookLoginButton>
+              onReject={(err) => {
+                console.log(err)
+              }}>
+              <FacebookLoginButton />
             </LoginSocialFacebook>
+
             <LoginSocialTwitter
               isOnlyGetToken
               client_id={process.env.REACT_APP_TWITTER_V2_APP_KEY}
               redirect_uri={REDIRECT_URI}
-              onLoginStart={onLoginStart}
               onResolve={({ provider, data }) => {
                 setProvider(provider)
                 setProfile(data)
               }}
               onReject={(err) => {
-                console.log(err)
-              }}
-            >
+                console.error(err)
+              }}>
               <TwitterLoginButton />
             </LoginSocialTwitter>
+
           </Stack>
         </Box>
       </Stack>
