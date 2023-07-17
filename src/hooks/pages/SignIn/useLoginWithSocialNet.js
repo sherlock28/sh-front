@@ -2,11 +2,14 @@ import { useState, useEffect } from "react"
 import { useMutation } from "@apollo/client";
 import { useToast } from "@chakra-ui/react";
 import { useLocation } from "wouter";
-import { REGISTER_STUDENT_USER_WITH_SOC_NET } from "client/gql/mutations/registerUser/registerStudentUserFacebook";
+import { REGISTER_STUDENT_USER_WITH_SOC_NET } from "client/gql/mutations/registerUser/registerStudentUserSocialNetwork";
 import { getVarStudentUserFacebook, getVarStudentUserGoogle } from "client/gql/mutations/registerUser/getVarStudentUser";
 import { paths } from "config/paths";
-import { useSelector } from "react-redux";
-import { authSelector } from "store/slices/authSlice";
+import { AUTH_PROVIDERS, USER_CATEGORIES } from "const";
+import { useDispatch, useSelector } from "react-redux";
+import { signInSocialNetAction, authSelector, clearState } from "store/slices/authSlice";
+
+
 import { getAgeFromBirthDate } from "utils/getAgeFromBirthDate";
 
 const GOOGLE_AUTH_SCOPE = "email profile https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email openid";
@@ -27,18 +30,22 @@ export function useLoginWithSocialNet() {
 
     /**************************************************************************************/
 
-    const { isAuthenticated } = useSelector(authSelector);
+    const dispatch = useDispatch();
+    const { isFetching, isSuccess, isError, isAuthenticated, user_category } = useSelector(authSelector);
 
     useEffect(() => {
-        if (isAuthenticated) {
+        if (isAuthenticated && user_category != USER_CATEGORIES.DEFAULT) {
             setLocation(paths.search);
         }
-    }, [isAuthenticated]);
+        if (isAuthenticated && user_category == USER_CATEGORIES.DEFAULT) {
+            setLocation(paths.questions);
+        }
+    }, [isAuthenticated, user_category]);
 
     useEffect(
         () => {
 
-            if (error) {
+            if (error && user_category != USER_CATEGORIES.DEFAULT) {
                 toast({
                     title: "Error",
                     description: "Algo salió mal",
@@ -64,6 +71,18 @@ export function useLoginWithSocialNet() {
 
     /**************************************************************************************/
 
+    const onSubmitLogginWithSocialNet = ({ data, provider }) => {
+
+        if (AUTH_PROVIDERS.GOOGLE === provider)
+            onSubmitStudentUserGoogle({ data });
+
+        if (AUTH_PROVIDERS.FACEBOOK === provider)
+            onSubmitStudentUserFacebook({ data });
+
+        if (AUTH_PROVIDERS.TWITTER === provider)
+            console.log("twitter")
+    };
+
     const onSubmitStudentUserFacebook = async ({ data }) => {
 
         let variables = getVarStudentUserFacebook(data);
@@ -71,10 +90,12 @@ export function useLoginWithSocialNet() {
         registerStudentUserWithSocNet({ variables })
             .then(({ data }) => {
                 console.log(data);
+                let email = data?.insert_sh_persons_one?.users?.at(0)?.email;
+                console.log(email)
+                // dispatch(signInSocialNetAction(data));
             })
             .catch(error => {
-                console.log(error.graphQLErrors[0].extensions);
-                if (error.graphQLErrors[0].extensions.code == "constraint-violation") {
+                if (error.graphQLErrors.at(0).extensions.code == "constraint-violation") {
                     console.log("Error: constraint-violation")
                 }
             });
@@ -83,14 +104,12 @@ export function useLoginWithSocialNet() {
     const onSubmitStudentUserGoogle = async ({ data }) => {
 
         let variables = getVarStudentUserGoogle(data);
-        console.log({ variables })
-
         registerStudentUserWithSocNet({ variables }).then(({ data }) => {
-            console.log(data);
+            dispatch(signInSocialNetAction(variables.email));
+
         }).catch(error => {
-            console.log(error.graphQLErrors[0].extensions);
-            if (error.graphQLErrors[0].extensions.code == "constraint-violation") {
-                console.log("Capturado error.")
+            if (error.graphQLErrors.at(0).extensions.code == "constraint-violation") {
+                dispatch(signInSocialNetAction(variables.email));
             }
         }
         );
@@ -114,8 +133,7 @@ export function useLoginWithSocialNet() {
     }
 
     return {
-        onSubmitStudentUserFacebook,
-        onSubmitStudentUserGoogle,
+        onSubmitLogginWithSocialNet,
         GOOGLE_AUTH_SCOPE,
         setProvider,
         setProfile

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Flex,
   Box,
@@ -19,7 +19,7 @@ import { paths } from "config/paths";
 import { Link } from "wouter";
 import { CustomButton } from "components/commons/CustomButton";
 import { useSignInForm } from "hooks/pages/SignIn/useSignInForm";
-import { useLoginWithSocialNet } from "hooks/utils/useLoginWithSocialNet";
+import { useLoginWithSocialNet } from "hooks/pages/SignIn/useLoginWithSocialNet";
 import { validateEmailSignIn, validatePasswordSignIn } from "utils/validations/SignIn";
 import { SectionHeader } from "components/commons/SectionHeader";
 import { sections } from "config/sections";
@@ -41,7 +41,7 @@ export function SignIn() {
     isFetching,
   } = useSignInForm();
 
-  const { onSubmitStudentUserFacebook, onSubmitStudentUserGoogle, GOOGLE_AUTH_SCOPE, setProvider, setProfile } = useLoginWithSocialNet();
+  const { onSubmitLogginWithSocialNet, GOOGLE_AUTH_SCOPE } = useLoginWithSocialNet();
 
   return (
     <Flex align={'center'} justify={'center'}>
@@ -105,9 +105,7 @@ export function SignIn() {
               scope={GOOGLE_AUTH_SCOPE}
               client_id={process.env.REACT_APP_GG_APP_ID || ''}
               onResolve={({ provider, data }) => {
-                setProvider(provider)
-                setProfile(data)
-                onSubmitStudentUserGoogle({ data })
+                onSubmitLogginWithSocialNet({ data, provider })
               }}
               onReject={(err) => {
                 console.error(err)
@@ -118,7 +116,7 @@ export function SignIn() {
             <LoginSocialFacebook
               appId={process.env.REACT_APP_FB_APP_ID}
               onResolve={(response) => {
-                onSubmitStudentUserFacebook(response)
+                onSubmitLogginWithSocialNet({ data: response, provider: "facebook" })
               }}
               onReject={(err) => {
                 console.log(err)
@@ -131,8 +129,7 @@ export function SignIn() {
               client_id={process.env.REACT_APP_TWITTER_V2_APP_KEY}
               redirect_uri={REDIRECT_URI}
               onResolve={({ provider, data }) => {
-                setProvider(provider)
-                setProfile(data)
+                console.log({ provider, data })
               }}
               onReject={(err) => {
                 console.error(err)

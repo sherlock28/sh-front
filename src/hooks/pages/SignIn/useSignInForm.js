@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useToast } from "@chakra-ui/react";
 import { useLocation } from "wouter";
 import { paths } from "config/paths";
+import { USER_CATEGORIES } from "const";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { signInAction, authSelector, clearState } from "store/slices/authSlice";
@@ -20,7 +21,7 @@ export function useSignInForm() {
   /**************************************************************************************/
 
   const dispatch = useDispatch();
-  const { isFetching, isSuccess, isError, isAuthenticated } = useSelector(authSelector);
+  const { isFetching, isSuccess, isError, isAuthenticated, user_category } = useSelector(authSelector);
 
   useEffect(() => {
     return () => {
@@ -41,10 +42,13 @@ export function useSignInForm() {
 
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && user_category != USER_CATEGORIES.DEFAULT) {
       setLocation(paths.search);
     }
-  }, [isAuthenticated]);
+    if (isAuthenticated && user_category == USER_CATEGORIES.DEFAULT) {
+      setLocation(paths.questions);
+    }
+  }, [isAuthenticated, user_category]);
 
   useEffect(
     () => {

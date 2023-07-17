@@ -28,6 +28,14 @@ export const authSlice = createSlice({
             state.isAuthenticated = true;
             state.isSuccess = true;
         },
+        successSignInWithSocialNet: (state, action) => {
+            state.isFetching = false;
+            state.token = action.payload.data;
+            state.user = action.payload.user;
+            state.user_category = action.payload.user["user-category-id"];
+            state.isAuthenticated = true;
+            state.isSuccess = true;
+        },
         successSignOut: (state, action) => {
             state.isFetching = false;
             state.user = null;
@@ -54,6 +62,7 @@ export const {
     authLoading,
     authFailed,
     successSignIn,
+    successSignInWithSocialNet,
     successSignOut,
     clearState,
 } = authSlice.actions;
@@ -71,6 +80,25 @@ export const signInAction = data => async dispatch => {
             dispatch(successSignIn(res));
         }
         if (statusCode === 401) {
+            dispatch(authFailed(res));
+        }
+    } catch (error) {
+        dispatch(authFailed(error.message));
+    }
+};
+
+export const signInSocialNetAction = data => async dispatch => {
+    dispatch(authLoading());
+    try {
+        const response = await auth.signInServiceWithOnlyEmail({ email: data });
+        const statusCode = response.status;
+        const res = await response.json();
+        res.user = jwt_decode(res.data);
+
+        if (statusCode === 200) {
+            dispatch(successSignInWithSocialNet(res));
+        }
+        if (statusCode === 400 || statusCode === 401) {
             dispatch(authFailed(res));
         }
     } catch (error) {
