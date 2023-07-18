@@ -34,11 +34,11 @@ export function useLoginWithSocialNet() {
     const { isFetching, isSuccess, isError, isAuthenticated, user_category } = useSelector(authSelector);
 
     useEffect(() => {
-        if (isAuthenticated && user_category != USER_CATEGORIES.DEFAULT) {
+         if (isAuthenticated && user_category != USER_CATEGORIES.DEFAULT) {
             setLocation(paths.search);
         }
         if (isAuthenticated && user_category == USER_CATEGORIES.DEFAULT) {
-            setLocation(paths.questions);
+            setLocation(paths.register);
         }
     }, [isAuthenticated, user_category]);
 

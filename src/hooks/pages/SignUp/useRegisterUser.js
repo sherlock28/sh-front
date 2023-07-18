@@ -6,7 +6,7 @@ import { useLocation } from "wouter";
 import { useDispatch } from "react-redux";
 import { REGISTER_STUDENT_USER } from "client/gql/mutations/registerUser/registerStudentUser";
 import { REGISTER_OWNER_USER } from "client/gql/mutations/registerUser/registerOwnerUser";
-import { getVarStudentUser, getVarStudentUserFacebook } from "client/gql/mutations/registerUser/getVarStudentUser";
+import { getVarStudentUser } from "client/gql/mutations/registerUser/getVarStudentUser";
 import { getVarOwnerUser } from "client/gql/mutations/registerUser/getVarOwnerUser";
 import { encryptPassword } from "utils/encryptPassword";
 import { paths } from "config/paths";
@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import { authSelector } from "store/slices/authSlice";
 import { getAgeFromBirthDate } from "utils/getAgeFromBirthDate";
 import { createNodeAction } from "store/slices/recommSlice";
+import { USER_CATEGORIES } from "const";
 
 export function useRegisterUser() {
     const dispatch = useDispatch();
@@ -28,10 +29,10 @@ export function useRegisterUser() {
 
     /**************************************************************************************/
 
-    const { isAuthenticated } = useSelector(authSelector);
+    const { isAuthenticated, user_category } = useSelector(authSelector);
 
     useEffect(() => {
-        if (isAuthenticated) {
+        if (isAuthenticated && user_category != USER_CATEGORIES.DEFAULT) {
             setLocation(paths.search);
         }
     }, [isAuthenticated]);

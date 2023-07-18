@@ -40,13 +40,12 @@ export function useSignInForm() {
 
   /**************************************************************************************/
 
-
   useEffect(() => {
     if (isAuthenticated && user_category != USER_CATEGORIES.DEFAULT) {
       setLocation(paths.search);
     }
     if (isAuthenticated && user_category == USER_CATEGORIES.DEFAULT) {
-      setLocation(paths.questions);
+      setLocation(paths.register);
     }
   }, [isAuthenticated, user_category]);
 
@@ -61,10 +60,6 @@ export function useSignInForm() {
           isClosable: true,
         });
         dispatch(clearState());
-      }
-
-      if (isSuccess) {
-        setLocation(paths.search);
       }
     }, // eslint-disable-next-line
     [isError, isSuccess]
