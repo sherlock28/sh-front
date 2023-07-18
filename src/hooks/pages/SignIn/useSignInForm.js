@@ -52,7 +52,7 @@ export function useSignInForm() {
 
   useEffect(
     () => {
-      if (isError) {
+      if (isError && user_category != USER_CATEGORIES.DEFAULT) {
         toast({
           title: "Error",
           description: "Credenciales inválidas",
