@@ -23,10 +23,10 @@ import { useLoginWithSocialNet } from "hooks/pages/SignIn/useLoginWithSocialNet"
 import { validateEmailSignIn, validatePasswordSignIn } from "utils/validations/SignIn";
 import { SectionHeader } from "components/commons/SectionHeader";
 import { sections } from "config/sections";
-import { LoginSocialGoogle, LoginSocialFacebook, LoginSocialTwitter } from 'reactjs-social-login';
-import { FacebookLoginButton, GoogleLoginButton, TwitterLoginButton } from 'react-social-login-buttons';
+import { LoginSocialGoogle, LoginSocialFacebook, LoginSocialTwitter,LoginSocialGithub } from 'reactjs-social-login';
+import { FacebookLoginButton, GoogleLoginButton, TwitterLoginButton,GithubLoginButton } from 'react-social-login-buttons';
 
-const REDIRECT_URI = 'http://localhost:3000/buscar';
+const REDIRECT_URI = window.location.href;//'http://localhost:3000/buscar';
 
 export function SignIn() {
   const { login } = sections;
@@ -124,7 +124,25 @@ export function SignIn() {
               <FacebookLoginButton />
             </LoginSocialFacebook>
 
-            <LoginSocialTwitter
+            <LoginSocialGithub
+            
+            scope="user,user:email"
+            client_id={process.env.REACT_APP_GITHUB_APP_ID || ''}
+            client_secret={process.env.REACT_APP_GITHUB_APP_SECRET || ''}
+            redirect_uri={REDIRECT_URI}
+            //onLoginStart={onLoginStart}
+            onResolve={({ provider, data }) => {
+              onSubmitLogginWithSocialNet({ data, provider })
+              console.error(data)
+            }}
+            onReject={(err) => {
+              console.error(err)
+            }}
+          >
+            <GithubLoginButton />
+          </LoginSocialGithub>
+
+            {/* <LoginSocialTwitter
               isOnlyGetToken
               client_id={process.env.REACT_APP_TWITTER_V2_APP_KEY}
               redirect_uri={REDIRECT_URI}
@@ -135,7 +153,7 @@ export function SignIn() {
                 console.error(err)
               }}>
               <TwitterLoginButton />
-            </LoginSocialTwitter>
+            </LoginSocialTwitter> */}
 
           </Stack>
         </Box>

@@ -31,6 +31,7 @@ export function Footer() {
                     <Link href={paths.houseRegister}>Publicar mi inmueble</Link>
                     <Link href={paths.members}>Sobre nosotros</Link>
                     <Link href={paths.contacts}>Contactos</Link>
+                    <Link href={paths.faq}>FAQ</Link>
                 </Stack>
             </Container>
 
