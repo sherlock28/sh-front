@@ -34,7 +34,7 @@ export function useLoginWithSocialNet() {
     const { isFetching, isSuccess, isError, isAuthenticated, user_category } = useSelector(authSelector);
 
     useEffect(() => {
-         if (isAuthenticated && user_category != USER_CATEGORIES.DEFAULT) {
+        if (isAuthenticated && user_category != USER_CATEGORIES.DEFAULT) {
             setLocation(paths.search);
         }
         if (isAuthenticated && user_category == USER_CATEGORIES.DEFAULT) {
@@ -89,14 +89,11 @@ export function useLoginWithSocialNet() {
 
         registerStudentUserWithSocNet({ variables })
             .then(({ data }) => {
-                console.log(data);
-                let email = data?.insert_sh_persons_one?.users?.at(0)?.email;
-                console.log(email)
-                // dispatch(signInSocialNetAction(data));
+                dispatch(signInSocialNetAction(variables.email));
             })
             .catch(error => {
                 if (error.graphQLErrors.at(0).extensions.code == "constraint-violation") {
-                    console.log("Error: constraint-violation")
+                    dispatch(signInSocialNetAction(variables.email));
                 }
             });
     };

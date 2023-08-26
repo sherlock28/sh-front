@@ -23,12 +23,13 @@ import { useLoginWithSocialNet } from "hooks/pages/SignIn/useLoginWithSocialNet"
 import { validateEmailSignIn, validatePasswordSignIn } from "utils/validations/SignIn";
 import { SectionHeader } from "components/commons/SectionHeader";
 import { sections } from "config/sections";
-import { LoginSocialGoogle, LoginSocialFacebook, LoginSocialTwitter,LoginSocialGithub } from 'reactjs-social-login';
-import { FacebookLoginButton, GoogleLoginButton, TwitterLoginButton,GithubLoginButton } from 'react-social-login-buttons';
+import { LoginSocialGoogle, LoginSocialFacebook, LoginSocialGithub } from 'reactjs-social-login';
+import { FacebookLoginButton, GoogleLoginButton, GithubLoginButton } from 'react-social-login-buttons';
 
-const REDIRECT_URI = window.location.href;//'http://localhost:3000/buscar';
+const REDIRECT_URI = window.location.href;
 
 export function SignIn() {
+
   const { login } = sections;
 
   const {
@@ -114,9 +115,9 @@ export function SignIn() {
             </LoginSocialGoogle>
 
             <LoginSocialFacebook
-              appId={process.env.REACT_APP_FB_APP_ID}
-              onResolve={(response) => {
-                onSubmitLogginWithSocialNet({ data: response, provider: "facebook" })
+              appId={process.env.REACT_APP_FB_APP_ID || ''}
+              onResolve={({ provider, data }) => {
+                onSubmitLogginWithSocialNet({ data, provider })
               }}
               onReject={(err) => {
                 console.log(err)
@@ -125,35 +126,20 @@ export function SignIn() {
             </LoginSocialFacebook>
 
             <LoginSocialGithub
-            
-            scope="user,user:email"
-            client_id={process.env.REACT_APP_GITHUB_APP_ID || ''}
-            client_secret={process.env.REACT_APP_GITHUB_APP_SECRET || ''}
-            redirect_uri={REDIRECT_URI}
-            //onLoginStart={onLoginStart}
-            onResolve={({ provider, data }) => {
-              onSubmitLogginWithSocialNet({ data, provider })
-              console.error(data)
-            }}
-            onReject={(err) => {
-              console.error(err)
-            }}
-          >
-            <GithubLoginButton />
-          </LoginSocialGithub>
-
-            {/* <LoginSocialTwitter
-              isOnlyGetToken
-              client_id={process.env.REACT_APP_TWITTER_V2_APP_KEY}
+              scope="user"
+              client_id={process.env.REACT_APP_GITHUB_APP_ID || ''}
+              client_secret={process.env.REACT_APP_GITHUB_APP_SECRET || ''}
               redirect_uri={REDIRECT_URI}
               onResolve={({ provider, data }) => {
-                console.log({ provider, data })
+                // onSubmitLogginWithSocialNet({ data, provider })
+                console.log(data)
               }}
               onReject={(err) => {
                 console.error(err)
-              }}>
-              <TwitterLoginButton />
-            </LoginSocialTwitter> */}
+              }}
+            >
+              <GithubLoginButton />
+            </LoginSocialGithub>
 
           </Stack>
         </Box>
