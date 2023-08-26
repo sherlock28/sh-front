@@ -4,11 +4,8 @@ import {
     Image,
     Stack,
     Text,
-    Box,
-    Spacer
+    Box
 } from '@chakra-ui/react';
-import { Center, HStack, Wrap, WrapItem } from '@chakra-ui/react/dist/chakra-ui-react.cjs';
-
 
 export function MembersView() {
 
