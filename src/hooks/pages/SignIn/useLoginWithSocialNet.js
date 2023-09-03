@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import { useToast } from "@chakra-ui/react";
 import { useLocation } from "wouter";
 import { REGISTER_STUDENT_USER_WITH_SOC_NET } from "client/gql/mutations/registerUser/registerStudentUserSocialNetwork";
-import { getVarStudentUserFacebook, getVarStudentUserGoogle } from "client/gql/mutations/registerUser/getVarStudentUser";
+import { getVarStudentUserFacebook, getVarStudentUserGoogle, getVarStudentUserGithub } from "client/gql/mutations/registerUser/getVarStudentUser";
 import { paths } from "config/paths";
 import { AUTH_PROVIDERS, USER_CATEGORIES } from "const";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +13,8 @@ import { signInSocialNetAction, authSelector, clearState } from "store/slices/au
 import { getAgeFromBirthDate } from "utils/getAgeFromBirthDate";
 
 const GOOGLE_AUTH_SCOPE = "email profile https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email openid";
+
+const GITHUB_EMAILS_API = "https://api.github.com/user/emails";
 
 export function useLoginWithSocialNet() {
     // eslint-disable-next-line
@@ -34,10 +36,10 @@ export function useLoginWithSocialNet() {
     const { isFetching, isSuccess, isError, isAuthenticated, user_category } = useSelector(authSelector);
 
     useEffect(() => {
-        if (isAuthenticated && user_category != USER_CATEGORIES.DEFAULT) {
+        if (isAuthenticated && user_category !== USER_CATEGORIES.DEFAULT) {
             setLocation(paths.search);
         }
-        if (isAuthenticated && user_category == USER_CATEGORIES.DEFAULT) {
+        if (isAuthenticated && user_category === USER_CATEGORIES.DEFAULT) {
             setLocation(paths.register);
         }
     }, [isAuthenticated, user_category]);
@@ -45,7 +47,7 @@ export function useLoginWithSocialNet() {
     useEffect(
         () => {
 
-            if (error && user_category != USER_CATEGORIES.DEFAULT) {
+            if (error && user_category !== USER_CATEGORIES.DEFAULT) {
                 toast({
                     title: "Error",
                     description: "Algo salió mal",
@@ -79,8 +81,21 @@ export function useLoginWithSocialNet() {
         if (AUTH_PROVIDERS.FACEBOOK === provider)
             onSubmitStudentUserFacebook({ data });
 
-        if (AUTH_PROVIDERS.TWITTER === provider)
-            console.log("twitter")
+        if (AUTH_PROVIDERS.GITHUB === provider)
+            onSubmitStudentUserGithub({ data });
+    };
+
+    const onSubmitStudentUserGoogle = async ({ data }) => {
+
+        let variables = getVarStudentUserGoogle(data);
+        registerStudentUserWithSocNet({ variables }).then(({ data }) => {
+            dispatch(signInSocialNetAction(variables.email));
+
+        }).catch(error => {
+            if (error.graphQLErrors.at(0).extensions.code === "constraint-violation") {
+                dispatch(signInSocialNetAction(variables.email));
+            }
+        });
     };
 
     const onSubmitStudentUserFacebook = async ({ data }) => {
@@ -92,25 +107,47 @@ export function useLoginWithSocialNet() {
                 dispatch(signInSocialNetAction(variables.email));
             })
             .catch(error => {
-                if (error.graphQLErrors.at(0).extensions.code == "constraint-violation") {
+                if (error.graphQLErrors.at(0).extensions.code === "constraint-violation") {
                     dispatch(signInSocialNetAction(variables.email));
                 }
             });
     };
 
-    const onSubmitStudentUserGoogle = async ({ data }) => {
+    const onSubmitStudentUserGithub = async ({ data }) => {
+        let { access_token } = data;
+        let variables = getVarStudentUserGithub(data);
+        let email = await getEmailFromGithub(access_token);
+        variables.email = email;
 
-        let variables = getVarStudentUserGoogle(data);
-        registerStudentUserWithSocNet({ variables }).then(({ data }) => {
-            dispatch(signInSocialNetAction(variables.email));
-
-        }).catch(error => {
-            if (error.graphQLErrors.at(0).extensions.code == "constraint-violation") {
+        registerStudentUserWithSocNet({ variables })
+            .then(({ data }) => {
                 dispatch(signInSocialNetAction(variables.email));
-            }
-        }
-        );
+            })
+            .catch(error => {
+                console.log(error)
+                if (error.graphQLErrors.at(0).extensions.code === "constraint-violation") {
+                    dispatch(signInSocialNetAction(variables.email));
+                }
+            });
     };
+
+    const getEmailFromGithub = async (access_token) => {
+
+        var githubHeaders = new Headers();
+        githubHeaders.append("X-GitHub-Api-Version", "2022-11-28");
+        githubHeaders.append("Accept", "application/vnd.github+json");
+        githubHeaders.append("Authorization", `Bearer ${access_token}`);
+
+        var requestOptions = {
+            method: 'GET',
+            headers: githubHeaders,
+            redirect: 'follow'
+        };
+
+        const response = await fetch(GITHUB_EMAILS_API, requestOptions)
+        const data = await response.json();
+        return data.at(0).email;
+    }
 
     /**************************************************************************************/
 

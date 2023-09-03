@@ -105,6 +105,7 @@ export function SignIn() {
             <LoginSocialGoogle
               scope={GOOGLE_AUTH_SCOPE}
               client_id={process.env.REACT_APP_GG_APP_ID || ''}
+              redirect_uri={window.location.href}
               onResolve={({ provider, data }) => {
                 onSubmitLogginWithSocialNet({ data, provider })
               }}
@@ -116,6 +117,7 @@ export function SignIn() {
 
             <LoginSocialFacebook
               appId={process.env.REACT_APP_FB_APP_ID || ''}
+              redirect_uri={window.location.href}
               onResolve={({ provider, data }) => {
                 onSubmitLogginWithSocialNet({ data, provider })
               }}
@@ -129,10 +131,9 @@ export function SignIn() {
               scope="user"
               client_id={process.env.REACT_APP_GITHUB_APP_ID || ''}
               client_secret={process.env.REACT_APP_GITHUB_APP_SECRET || ''}
-              redirect_uri={REDIRECT_URI}
+              redirect_uri={window.location.href}
               onResolve={({ provider, data }) => {
-                // onSubmitLogginWithSocialNet({ data, provider })
-                console.log(data)
+                onSubmitLogginWithSocialNet({ data, provider })
               }}
               onReject={(err) => {
                 console.error(err)

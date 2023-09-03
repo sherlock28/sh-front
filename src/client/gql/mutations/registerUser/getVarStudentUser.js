@@ -45,3 +45,14 @@ export function getVarStudentUserGoogle(data) {
 
     return variables;
 }
+
+export function getVarStudentUserGithub(data) {
+
+    let variables = {
+        lastname: data.name.split(" ").at(1),
+        firstname: data.name.split(" ").at(0),
+        user_status: true
+    };
+
+    return variables;
+}
