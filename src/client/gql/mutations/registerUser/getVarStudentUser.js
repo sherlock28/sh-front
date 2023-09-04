@@ -28,6 +28,7 @@ export function getVarStudentUserFacebook(data) {
         lastname: data.last_name,
         firstname: data.first_name,
         email: data.email,
+        created_with_sn: true,
         user_status: true
     };
 
@@ -40,6 +41,7 @@ export function getVarStudentUserGoogle(data) {
         lastname: data.family_name,
         firstname: data.given_name,
         email: data.email,
+        created_with_sn: true,
         user_status: true
     };
 
@@ -51,6 +53,7 @@ export function getVarStudentUserGithub(data) {
     let variables = {
         lastname: data.name.split(" ").at(1),
         firstname: data.name.split(" ").at(0),
+        created_with_sn: true,
         user_status: true
     };
 

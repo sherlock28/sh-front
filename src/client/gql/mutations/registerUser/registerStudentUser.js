@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const REGISTER_STUDENT_USER = gql`
-mutation RegisterStudentUser($lastname: String, $firstname: String, $gender: String, $birth_date: date, $phone: String, $cities_id: bigint, $file_number: bigint, $careers_id: bigint, $shared: Boolean, $username: String, $email: String, $password: String, $bio: String, $user_status: Boolean, $user_categories_id: bigint, $avatar: String) 
+mutation RegisterStudentUser($lastname: String, $firstname: String, $gender: String, $birth_date: date, $phone: String, $cities_id: bigint, $file_number: bigint, $careers_id: bigint, $shared: Boolean, $username: String, $email: String, $password: String, $bio: String, $created_with_sn: Boolean, $user_status: Boolean, $user_categories_id: bigint, $avatar: String) 
     {
         insert_sh_persons (
             objects: [
@@ -28,6 +28,7 @@ mutation RegisterStudentUser($lastname: String, $firstname: String, $gender: Str
                                 email: $email,
                                 password: $password,
                                 bio: $bio,
+                                created_with_sn: $created_with_sn, 
                                 user_status: $user_status,
                                 user_categories_id: $user_categories_id,
                                 avatar: $avatar
@@ -48,6 +49,7 @@ mutation RegisterStudentUser($lastname: String, $firstname: String, $gender: Str
                     username
                     email
                   	bio
+                    created_with_sn
                     user_category {
                         id
                         description

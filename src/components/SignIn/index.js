@@ -105,7 +105,7 @@ export function SignIn() {
             <LoginSocialGoogle
               scope={GOOGLE_AUTH_SCOPE}
               client_id={process.env.REACT_APP_GG_APP_ID || ''}
-              redirect_uri={window.location.href}
+              redirect_uri={REDIRECT_URI}
               onResolve={({ provider, data }) => {
                 onSubmitLogginWithSocialNet({ data, provider })
               }}
@@ -117,7 +117,7 @@ export function SignIn() {
 
             <LoginSocialFacebook
               appId={process.env.REACT_APP_FB_APP_ID || ''}
-              redirect_uri={window.location.href}
+              redirect_uri={REDIRECT_URI}
               onResolve={({ provider, data }) => {
                 onSubmitLogginWithSocialNet({ data, provider })
               }}
